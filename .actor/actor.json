@@ -1,0 +1,30 @@
+{
+  "actorSpecification": 1.0,
+  "name": "refinery-html-to-llm-cleaner",
+  "title": "Refinery: 0.40ms HTML Cleansing Engine for AI & RAG",
+  "description": "Zero-LLM deterministic processing. No hallucinations, no data leakage to third-party APIs, and zero risk of steganographic instruction masking. Refinery is a compiled, native Rust utility binary built for strict enterprise compliance and high-velocity RAG pipelines. It does not interpret data—it cleans it with 100% mathematical predictability.",
+  "version": "1.0",
+  "buildTag": "latest",
+  "seoTitle": "Refinery: 0.40ms HTML Cleansing Engine for AI & RAG",
+  "seoDescription": "Zero-LLM deterministic HTML processing for enterprise AI pipelines. Strip JavaScript and CSS bloat in 0.40ms, reduce LLM token costs by 40%. Built for strict compliance and high-velocity RAG systems.",
+  "categories": [
+    "AI",
+    "DEVELOPER_TOOLS"
+  ],
+  "tags": [
+    "html",
+    "cleaner",
+    "rag",
+    "llm",
+    "text-extraction",
+    "rust",
+    "deterministic",
+    "enterprise",
+    "security"
+  ],
+  "dockerfile": "./Dockerfile",
+  "dockerContext": "./",
+  "readmePath": "./README.md",
+  "input": "./.actor/INPUT_SCHEMA.json",
+  "output": "./.actor/OUTPUT_SCHEMA.json"
+}
