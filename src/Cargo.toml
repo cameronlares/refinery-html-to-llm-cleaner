@@ -1,0 +1,22 @@
+[package]
+name = "refinery_json"
+version = "0.1.0"
+edition = "2024"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+[lib]
+name = "refinery_json"
+crate-type = ["cdylib"]
+
+[dependencies]
+pyo3 = { version = "0.20", features = ["extension-module"] }
+simd-json = "0.13"
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+regex = "1.10"
+fasttext = "0.8.0"
+# PREMIUM ENHANCEMENTS
+encoding_rs = "0.8"          # SIMD entity decoding
+unicode-segmentation = "1.10" # Unicode analysis
+# BATTLE-TEST: Zero-copy optimization
+once_cell = "1.19"           # Pre-compiled regex patterns

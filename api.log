@@ -1,0 +1,33 @@
+INFO:     Started server process [757959]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://0.0.0.0:8002 (Press CTRL+C to quit)
+INFO:     127.0.0.1:52198 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52206 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53260 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54392 - "POST /v1/refinery HTTP/1.1" 200 OK
+INFO:     127.0.0.1:34428 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:34428 - "OPTIONS /v1/refinery HTTP/1.1" 200 OK
+INFO:     127.0.0.1:34428 - "POST /v1/refinery HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56868 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37520 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58222 - "POST /v1/refinery HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58222 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54608 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:38482 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40948 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:46930 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54688 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:34554 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:46578 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39644 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58028 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50652 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53240 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60768 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39496 - "GET /health HTTP/1.1" 200 OK
+INFO:     18.116.101.220:38468 - "GET / HTTP/1.1" 200 OK
+INFO:     18.116.101.220:36180 - "GET / HTTP/1.1" 200 OK
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.

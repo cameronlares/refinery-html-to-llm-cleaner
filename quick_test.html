@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Quick Test</title>
+    <style>
+        .test-input {
+            width: 100%;
+            height: 100px;
+            background: #f0f0f0;
+            border: 1px solid #ccc;
+            padding: 10px;
+            white-space: pre;
+            word-wrap: break-word;
+        }
+    </style>
+</head>
+<body>
+    <h1>HTML Escaping Test</h1>
+    <textarea class="test-input" id="test-input"></textarea>
+    <button onclick="testEscaping()">Test</button>
+    
+    <script>
+        function testEscaping() {
+            const sampleHTML = `<html><body><h1>Test</h1><p>This should not render</p></body></html>`;
+            const escapedHTML = sampleHTML
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;');
+            
+            document.getElementById('test-input').value = escapedHTML;
+            console.log('Original:', sampleHTML);
+            console.log('Escaped:', escapedHTML);
+        }
+    </script>
+</body>
+</html>
