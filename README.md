@@ -1,6 +1,6 @@
 # Refinery: The Fastest HTML-to-Text Engine on the Grid
 
-![Refinery Logo](https://raw.githubusercontent.com/cameronlares/refinery-html-to-llm-cleaner/main/assets/logo.png)
+![Refinery Logo](https://raw.githubusercontent.com/LareLabs/refinery-html-to-llm-cleaner/main/assets/logo.png)
 
 **Parse messy DOM trees into clean, LLM-ready text in 0.40ms. Designed for high-velocity scraping, RAG pipelines, and autonomous agents that hate hallucinating on bad data.**
 
@@ -46,10 +46,10 @@ Refinery uses mathematical algorithms, not AI interpretation. No data leaks to t
 
 **Why this matters:** Your agent processes data deterministically. The same input always produces the same output. That's reliability.
 
-[![Terms of Service](https://img.shields.io/badge/Terms-TOS-blue)](https://github.com/cameronlares/refinery-html-to-llm-cleaner/blob/main/TERMS.md)
-[![Privacy Policy](https://img.shields.io/badge/Privacy-Private-green)](https://github.com/cameronlares/refinery-html-to-llm-cleaner/blob/main/PRIVACY.md)
-[![Zero-LLM](https://img.shields.io/badge/Architecture-Zero--LLM-orange)](https://github.com/cameronlares/refinery-html-to-llm-cleaner)
-[![Rust-Powered](https://img.shields.io/badge/Engine-Rust-orange)](https://github.com/cameronlares/refinery-html-to-llm-cleaner)
+[![Terms of Service](https://img.shields.io/badge/Terms-TOS-blue)](https://github.com/LareLabs/refinery-html-to-llm-cleaner/blob/main/TERMS.md)
+[![Privacy Policy](https://img.shields.io/badge/Privacy-Private-green)](https://github.com/LareLabs/refinery-html-to-llm-cleaner/blob/main/PRIVACY.md)
+[![Zero-LLM](https://img.shields.io/badge/Architecture-Zero--LLM-orange)](https://github.com/LareLabs/refinery-html-to-llm-cleaner)
+[![Rust-Powered](https://img.shields.io/badge/Engine-Rust-orange)](https://github.com/LareLabs/refinery-html-to-llm-cleaner)
 
 ---
 
@@ -92,7 +92,7 @@ response = llm.process(cleaned)
 from apify_client import ApifyClient
 
 client = ApifyClient("YOUR_API_TOKEN")
-actor = client.actor("cameronlares/refinery-html-to-llm-cleaner")
+actor = client.actor("larelabs/refinery-html-to-llm-cleaner")
 
 result = actor.call(
     input={
@@ -109,7 +109,7 @@ print(result["defaultDatasetId"])
 const { ApifyClient } = require('apify-client');
 
 const client = new ApifyClient({ token: 'YOUR_API_TOKEN' });
-const actor = client.actor('cameronlares/refinery-html-to-llm-cleaner');
+const actor = client.actor('larelabs/refinery-html-to-llm-cleaner');
 
 const result = await actor.call({
     input: {
@@ -123,7 +123,7 @@ console.log(result.defaultDatasetId);
 
 ### cURL
 ```bash
-curl -X POST https://api.apify.com/v2/acts/cameronlares~refinery-html-to-llm-cleaner/runs \
+curl -X POST https://api.apify.com/v2/acts/larelabs~refinery-html-to-llm-cleaner/runs \
   -H 'Authorization: Bearer YOUR_API_TOKEN' \
   -H 'Content-Type: application/json' \
   -d '{
@@ -136,7 +136,7 @@ curl -X POST https://api.apify.com/v2/acts/cameronlares~refinery-html-to-llm-cle
 
 ## 📊 Performance Matrix
 
-![Performance Matrix](https://raw.githubusercontent.com/cameronlares/refinery-html-to-llm-cleaner/main/assets/benchmark-chart.png)
+![Performance Matrix](https://raw.githubusercontent.com/LareLabs/refinery-html-to-llm-cleaner/main/assets/benchmark-chart.png)
 
 | Metric | Refinery | BeautifulSoup | Advantage |
 |--------|----------|---------------|------------|
@@ -156,7 +156,7 @@ curl -X POST https://api.apify.com/v2/acts/cameronlares~refinery-html-to-llm-cle
 
 ## 🔬 Enterprise Pipeline Integration
 
-![Terminal Proof](https://raw.githubusercontent.com/cameronlares/refinery-html-to-llm-cleaner/main/assets/terminal-proof.png)
+![Terminal Proof](https://raw.githubusercontent.com/LareLabs/refinery-html-to-llm-cleaner/main/assets/terminal-proof.png)
 
 Refinery sits between raw web data and your RAG pipeline, processing 1M+ pages/day with 40% token reduction and zero data leakage.
 
@@ -259,7 +259,7 @@ Refinery uses pre-compiled regex patterns with SIMD optimization, removing all J
 
 ## 🏗️ Technical Architecture
 
-![Architecture Diagram](https://raw.githubusercontent.com/cameronlares/refinery-html-to-llm-cleaner/main/assets/architecture-diagram.png)
+![Architecture Diagram](https://raw.githubusercontent.com/LareLabs/refinery-html-to-llm-cleaner/main/assets/architecture-diagram.png)
 
 Refinery integrates seamlessly into enterprise RAG pipelines, providing deterministic HTML preprocessing with zero data leakage.
 
