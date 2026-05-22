@@ -200,6 +200,6 @@ python app/api.py
 
 ## Support
 
-- **GitHub Issues:** https://github.com/cameronlares/refinery/issues
-- **Documentation:** https://github.com/cameronlares/refinery/docs
+- **GitHub Issues:** https://github.com/LareLabs/refinery-html-to-llm-cleaner/issues
+- **Documentation:** https://github.com/LareLabs/refinery-html-to-llm-cleaner
 - **Performance:** Benchmarks available on request
