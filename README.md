@@ -1,35 +1,55 @@
-# Refinery: 0.40ms HTML Cleansing Engine for AI & RAG
+# Refinery: The High-Velocity HTML Cleansing Engine for Enterprise RAG
 
 ![Refinery Logo](https://raw.githubusercontent.com/cameronlares/refinery-html-to-llm-cleaner/main/assets/logo.png)
 
-**Zero-LLM deterministic data processing. No hallucinations, no data leakage to third-party APIs, and zero risk of steganographic instruction masking. Refinery is a compiled, native Rust utility binary built for strict enterprise compliance and high-velocity RAG pipelines. It does not interpret data—it cleans it with 100% mathematical predictability.**
-
-BeautifulSoup is free to download, but it costs you thousands in LLM token fees. Refinery strips 100% of tracking script and CSS layout bloat in 0.40ms, dropping your AI bills by 40% instantly.
+**Zero-LLM deterministic processing. Reduce LLM token costs by 40% in 0.40ms. Built for strict enterprise compliance.**
 
 ---
 
-## ⚡ The Brutal Hook: Speed or Money
+## 🎯 The Problem: The Token Death Trap
 
-You have two choices:
+Your RAG pipeline is bleeding money. Every time you feed dirty HTML into your LLM, you're paying for:
 
-**Option A: BeautifulSoup**
-- Processing time: 112ms per page
-- Memory footprint: 45MB per instance
-- Token waste: 30-40% of your LLM input is garbage (scripts, CSS, tracking)
-- Cost: $700/day for 10,000 pages in LLM tokens
+- **JavaScript tracking scripts** (30-40% of your token budget)
+- **CSS layout bloat** (10-15% of your token budget)
+- **Useless metadata** (5-10% of your token budget)
 
-**Option B: Refinery**
-- Processing time: 0.40ms per page (281x faster)
-- Memory footprint: 2MB per instance (22.5x less)
-- Token waste: 0% (all bloat stripped before LLM sees it)
-- Cost: $420/day for 10,000 pages in LLM tokens + $20/day in Refinery fees
-- **Net savings: $260/day = $7,800/month**
-
-**The math is brutal:** A single high-volume scraping agency processing 10,000 pages/day saves $7,800/month by switching to Refinery. That's enterprise revenue, not hobby change.
+**Result:** You're paying 40% more than necessary for LLM inference. For a team processing 10,000 pages/day, that's $7,800/month wasted on garbage tokens.
 
 ---
 
-## 🚀 Keyword-Optimized Features
+## ⚡ The Refinery Solution
+
+Refinery sits between your web scrapers and your LLM, stripping 100% of JavaScript, CSS, and tracking scripts in 0.40ms. The result:
+
+- **40% reduction in LLM token costs**
+- **281x faster than BeautifulSoup**
+- **2MB memory footprint** (vs 45MB+ for Node/Python)
+- **Zero data leakage** (no third-party APIs)
+- **100% deterministic processing** (no hallucinations)
+
+**Enterprise Impact:** Processing 10,000 pages/day saves $7,800/month in LLM costs while adding only $20/day in Refinery fees.
+
+---
+
+## 🔒 Enterprise Security & Compliance
+
+**Zero-LLM Architecture:** Refinery uses mathematical algorithms, not AI interpretation. No data leaks to training datasets.
+
+**SOC2-Compliant Design:** Deterministic processing with audit-ready capabilities for enterprise compliance teams.
+
+**GDPR Ready:** Zero data retention means no cross-border transfer issues. All processing occurs in-memory.
+
+**Data Privacy Assured:** No third-party API calls, no external inference engines, zero steganographic risk.
+
+[![Terms of Service](https://img.shields.io/badge/Terms-TOS-blue)](https://github.com/cameronlares/refinery-html-to-llm-cleaner/blob/main/TERMS.md)
+[![Privacy Policy](https://img.shields.io/badge/Privacy-Private-green)](https://github.com/cameronlares/refinery-html-to-llm-cleaner/blob/main/PRIVACY.md)
+[![Zero-LLM](https://img.shields.io/badge/Architecture-Zero--LLM-orange)](https://github.com/cameronlares/refinery-html-to-llm-cleaner)
+[![Rust-Powered](https://img.shields.io/badge/Engine-Rust-orange)](https://github.com/cameronlares/refinery-html-to-llm-cleaner)
+
+---
+
+## 🚀 Key Features
 
 - **Clean HTML** for AI training data in 0.40ms
 - **Remove JavaScript** and CSS bloat automatically  
@@ -43,6 +63,57 @@ You have two choices:
 - **Zero dependencies** - compiled native binary
 - **Mathematical predictability** - no AI interpretation
 - **Steganographic safety** - no instruction masking
+
+---
+
+## 💻 Quick Start
+
+### Python
+```python
+from apify_client import ApifyClient
+
+client = ApifyClient("YOUR_API_TOKEN")
+actor = client.actor("cameronlares/refinery-html-to-llm-cleaner")
+
+result = actor.call(
+    input={
+        "raw_payload": "<html><body><script>ga('send')</script><h1>Hello World</h1></body></html>",
+        "selector": "body"
+    }
+)
+
+print(result["defaultDatasetId"])
+```
+
+### JavaScript
+```javascript
+const { ApifyClient } = require('apify-client');
+
+const client = new ApifyClient({ token: 'YOUR_API_TOKEN' });
+const actor = client.actor('cameronlares/refinery-html-to-llm-cleaner');
+
+const result = await actor.call({
+    input: {
+        raw_payload: '<html><body><script>ga(\'send\')</script><h1>Hello World</h1></body></html>',
+        selector: 'body'
+    }
+});
+
+console.log(result.defaultDatasetId);
+```
+
+### cURL
+```bash
+curl -X POST https://api.apify.com/v2/acts/cameronlares~refinery-html-to-llm-cleaner/runs \
+  -H 'Authorization: Bearer YOUR_API_TOKEN' \
+  -H 'Content-Type: application/json' \
+  -d '{
+    "raw_payload": "<html><body><script>ga(\"send\")</script><h1>Hello World</h1></body></html>",
+    "selector": "body"
+  }'
+```
+
+---
 
 ## 📊 Performance Matrix
 
