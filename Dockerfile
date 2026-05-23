@@ -1,15 +1,11 @@
-# Multi-stage Dockerfile for Refinery Cloud API
-FROM python:3.12-slim as base
+FROM python:3.12-slim
 
-# Install system dependencies including Rust
+# Install system dependencies
 RUN apt-get update && apt-get install -y \
     build-essential \
     pkg-config \
     curl \
-    && curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y \
     && rm -rf /var/lib/apt/lists/*
-
-ENV PATH="/root/.cargo/bin:${PATH}"
 
 # Set working directory
 WORKDIR /app
@@ -18,25 +14,18 @@ WORKDIR /app
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy Rust source and build
-COPY Cargo.toml Cargo.lock ./
-COPY src ./src/
-COPY assets ./assets/
-
-# Build and install Rust core
-RUN pip install maturin && \
-    maturin build --release && \
-    pip install target/wheels/refinery_cloud-0.1.0-cp312-cp312-linux_x86_64.whl
+# Copy the pre-compiled Python module
+COPY refinery_core_src/refinery_core.cpython-312-x86_64-linux-gnu.so /usr/local/lib/python3.12/site-packages/
 
 # Copy FastAPI application
 COPY app/ ./app/
+COPY src/main.py ./src/
+
+# Install the actor
+RUN pip install -e .
 
 # Expose port
 EXPOSE 8000
 
-# Health check
-HEALTHCHECK --interval=30s --timeout=30s --start-period=5s --retries=3 \
-    CMD curl -f http://localhost:8000/health || exit 1
-
-# Run the API
-CMD ["python", "app/api.py"]
+# Run the actor
+CMD ["python", "-m", "refinery"]
