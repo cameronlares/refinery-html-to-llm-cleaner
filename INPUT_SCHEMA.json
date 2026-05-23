@@ -1,0 +1,61 @@
+{
+  "title": "HTML to Text Cleaner Input",
+  "type": "object",
+  "schemaVersion": 1,
+  "description": "Extract clean text from HTML by removing JavaScript, CSS, and tracking tags. Perfect for RAG pipelines, LLM training data, and AI agent workflows.",
+  "properties": {
+    "raw_payload": {
+      "title": "HTML Content",
+      "type": "string",
+      "description": "HTML content to process (single page)",
+      "editor": "textarea",
+      "minLength": 1,
+      "sectionCaption": "Input"
+    },
+    "urls": {
+      "title": "URLs to Process",
+      "type": "array",
+      "description": "Array of URLs to fetch and process (alternative to raw_payload)",
+      "items": {
+        "type": "string"
+      },
+      "sectionCaption": "Input"
+    },
+    "includeMetadata": {
+      "title": "Include Metadata",
+      "type": "boolean",
+      "description": "Extract and return metadata (language, processing time, script removal stats)",
+      "default": true,
+      "sectionCaption": "Options"
+    },
+    "removeScripts": {
+      "title": "Remove Scripts",
+      "type": "boolean",
+      "description": "Strip JavaScript and tracking scripts from HTML",
+      "default": true,
+      "sectionCaption": "Options"
+    },
+    "removeStyles": {
+      "title": "Remove Styles",
+      "type": "boolean",
+      "description": "Strip CSS and style tags from HTML",
+      "default": true,
+      "sectionCaption": "Options"
+    },
+    "extractMentions": {
+      "title": "Extract Mentions",
+      "type": "boolean",
+      "description": "Extract @mentions from text (for social media content)",
+      "default": false,
+      "sectionCaption": "Advanced"
+    },
+    "extractHashtags": {
+      "title": "Extract Hashtags",
+      "type": "boolean",
+      "description": "Extract #hashtags from text (for social media content)",
+      "default": false,
+      "sectionCaption": "Advanced"
+    }
+  },
+  "required": []
+}
