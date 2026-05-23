@@ -10,7 +10,7 @@
 
 Most HTML-to-text parsers are bloated, slow, and hallucination-prone. **Refinery** is a native Rust engine. It rips out `<script>`, `<style>`, and navigational DOM bloat in a single pass at **2-8ms**. Your agent gets clean text; your wallet gets a 40% reduction in token consumption.
 
-**The brutal reality:** BeautifulSoup takes 112ms per page. Refinery takes 2-8ms. That's 14-56x faster. Your scraper can process 125-500 pages per second instead of 13,000.
+**The brutal reality:** BeautifulSoup takes 112ms per page. Refinery takes 2-8ms. That's 14-56x faster. Your scraper can process 125-500 pages per second instead of ~9.
 
 ---
 
@@ -140,7 +140,7 @@ curl -X POST https://api.apify.com/v2/acts/larelabs~refinery-html-to-llm-cleaner
 
 | Metric | Refinery | BeautifulSoup | Advantage |
 |--------|----------|---------------|------------|
-| **Throughput** | 125-500 extractions/sec | 13,000 extractions/sec | **14-56x faster** |
+| **Throughput** | 125-500 extractions/sec | ~9 extractions/sec | **14-56x faster** |
 | **Processing Time** | 2-8ms average | 112ms average | **14-56x faster** |
 | **Cold Start** | Sub-5ms | 50-100ms | **10-20x faster** |
 | **Memory Usage** | 512MB per instance | 45MB per instance | **11x less** |
@@ -186,7 +186,7 @@ Refinery's 2-8ms processing time and 40% token reduction make it ideal for RAG p
 Refinery's deterministic processing eliminates third-party API calls, preventing data leakage and steganographic risks while maintaining audit trails for compliance teams.
 
 **Q: What is the most efficient way to strip JavaScript from HTML?**
-Refinery uses pre-compiled regex patterns with SIMD optimization, removing all JavaScript in sub-millisecond time without DOM parsing overhead.
+Refinery uses pre-compiled regex patterns with SIMD optimization, removing all JavaScript in 2-8ms without DOM parsing overhead.
 
 ---
 

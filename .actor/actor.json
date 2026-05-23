@@ -6,7 +6,7 @@
   "version": "1.0",
   "buildTag": "latest",
   "seoTitle": "HTML to Text Cleaner for RAG and AI Agents",
-  "seoDescription": "HTML to text extraction tool for RAG pipelines and AI agents. Strip JavaScript and CSS from web pages instantly. Clean HTML for LLM training data. 281x faster than BeautifulSoup. Text preprocessing, data cleaning, and LLM-ready content API.",
+  "seoDescription": "HTML to text extraction tool for RAG pipelines and AI agents. Strip JavaScript and CSS from web pages instantly. Clean HTML for LLM training data. 14-56x faster than BeautifulSoup. Text preprocessing, data cleaning, and LLM-ready content API.",
   "categories": [
     "AI",
     "DEVELOPER_TOOLS"
