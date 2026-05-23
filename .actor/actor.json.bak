@@ -1,0 +1,33 @@
+{
+  "actorSpecification": 1.0,
+  "name": "refinery-html-to-llm-cleaner",
+  "title": "HTML Cleaner for Scrapers and AI Agents",
+  "description": "Extract clean text from raw HTML in 2-8ms. Strips JavaScript, CSS, and tracking scripts. Perfect for web scraping pipelines, RAG systems, and AI agent workflows. API-first, MCP-ready.",
+  "version": "1.0",
+  "buildTag": "latest",
+  "seoTitle": "HTML Cleaner for Web Scraping and AI Agents - Fast Text Extraction",
+  "seoDescription": "Clean HTML text extraction for web scrapers, RAG pipelines, and AI agents. Strip JavaScript and CSS from raw HTML instantly. 14-56x faster than BeautifulSoup. API-first, MCP-ready.",
+  "categories": [
+    "AI",
+    "DEVELOPER_TOOLS",
+    "WEB_SCRAPING",
+    "DATA_PROCESSING"
+  ],
+  "tags": [
+    "html",
+    "cleaner",
+    "text-extraction",
+    "web-scraping",
+    "rag",
+    "llm",
+    "ai-agents",
+    "rust",
+    "api",
+    "deterministic"
+  ],
+  "dockerfile": "./Dockerfile",
+  "dockerContext": "./",
+  "readmePath": "./README.md",
+  "input": "./INPUT_SCHEMA.json",
+  "output": "./OUTPUT_SCHEMA.json"
+}
