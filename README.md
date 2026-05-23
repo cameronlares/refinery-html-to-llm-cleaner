@@ -1,6 +1,6 @@
 # Refinery: The Fastest HTML-to-Text Engine on the Grid
 
-<img src="https://raw.githubusercontent.com/LareLabs/refinery-html-to-llm-cleaner/main/assets/logo.png" alt="Refinery Logo" width="200">
+<img src="https://raw.githubusercontent.com/LareLabs/refinery-html-to-llm-cleaner/main/assets/Logo3.png" alt="Refinery Logo" width="200">
 
 **Parse messy DOM trees into clean, LLM-ready text in 2-8ms. Designed for high-velocity scraping, RAG pipelines, and autonomous agents that hate hallucinating on bad data.**
 
