@@ -1,6 +1,6 @@
 # Refinery: The Fastest HTML-to-Text Engine on the Grid
 
-![Refinery Logo](https://raw.githubusercontent.com/LareLabs/refinery-html-to-llm-cleaner/main/assets/logo.png)
+<img src="https://raw.githubusercontent.com/LareLabs/refinery-html-to-llm-cleaner/main/assets/logo.png" alt="Refinery Logo" width="200">
 
 **Parse messy DOM trees into clean, LLM-ready text in 2-8ms. Designed for high-velocity scraping, RAG pipelines, and autonomous agents that hate hallucinating on bad data.**
 
@@ -136,7 +136,7 @@ curl -X POST https://api.apify.com/v2/acts/larelabs~refinery-html-to-llm-cleaner
 
 ## 📊 Performance Matrix
 
-![Performance Matrix](https://raw.githubusercontent.com/LareLabs/refinery-html-to-llm-cleaner/main/assets/benchmark-chart.png)
+<img src="https://raw.githubusercontent.com/LareLabs/refinery-html-to-llm-cleaner/main/assets/benchmark-chart.png" alt="Performance Matrix" width="600">
 
 | Metric | Refinery | BeautifulSoup | Advantage |
 |--------|----------|---------------|------------|
@@ -156,7 +156,7 @@ curl -X POST https://api.apify.com/v2/acts/larelabs~refinery-html-to-llm-cleaner
 
 ## 🔬 Enterprise Pipeline Integration
 
-![Terminal Proof](https://raw.githubusercontent.com/LareLabs/refinery-html-to-llm-cleaner/main/assets/terminal-proof.png)
+<img src="https://raw.githubusercontent.com/LareLabs/refinery-html-to-llm-cleaner/main/assets/terminal-proof.png" alt="Terminal Proof" width="600">
 
 Refinery sits between raw web data and your RAG pipeline, processing 1M+ pages/day with 40% token reduction and zero data leakage.
 
@@ -259,7 +259,7 @@ Refinery uses pre-compiled regex patterns with SIMD optimization, removing all J
 
 ## 🏗️ Technical Architecture
 
-![Architecture Diagram](https://raw.githubusercontent.com/LareLabs/refinery-html-to-llm-cleaner/main/assets/architecture-diagram.png)
+<img src="https://raw.githubusercontent.com/LareLabs/refinery-html-to-llm-cleaner/main/assets/architecture-diagram.png" alt="Architecture Diagram" width="600">
 
 Refinery integrates seamlessly into enterprise RAG pipelines, providing deterministic HTML preprocessing with zero data leakage.
 
