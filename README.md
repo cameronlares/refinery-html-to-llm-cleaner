@@ -265,4 +265,15 @@ Refinery integrates seamlessly into enterprise RAG pipelines, providing determin
 
 ---
 
-**Built by [LareLabs](https://larelabs.com)** - Ultra-fast HTML text extraction for high-volume RAG pipelines.
+### Lare Labs
+
+We build tools that don't suck.
+
+Most web scraping tech is slow, bloated, and breaks when pages change. We fix that. Our tools process pages in 2-8ms instead of 112ms. They don't break when layouts change. Your AI system gets clean data.
+
+**What we ship:**
+- Refinery: HTML-to-text extraction, 14-56x faster than BeautifulSoup
+- More tools coming
+
+**Get in touch:**
+- 🔗 [Lare Labs](https://larelabs.com)
