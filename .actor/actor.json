@@ -1,26 +1,29 @@
 {
   "actorSpecification": 1.0,
   "name": "refinery-html-to-llm-cleaner",
-  "title": "HTML to Text Cleaner for RAG and AI Agents",
-  "description": "Extract clean text from HTML in 2-8ms. Removes JavaScript, CSS, and tracking tags automatically. Reduces LLM token costs by 40%. Perfect for RAG pipelines, web scrapers, and AI agents that need reliable data preprocessing.",
+  "title": "HTML Cleaner for Scrapers and AI Agents",
+  "description": "Extract clean text from raw HTML in 2-8ms. Strips JavaScript, CSS, and tracking scripts. Perfect for web scraping pipelines, RAG systems, and AI agent workflows. API-first, MCP-ready.",
   "version": "1.0",
   "buildTag": "latest",
-  "seoTitle": "HTML to Text Cleaner for RAG and AI Agents",
-  "seoDescription": "HTML to text extraction tool for RAG pipelines and AI agents. Strip JavaScript and CSS from web pages instantly. Clean HTML for LLM training data. 14-56x faster than BeautifulSoup. Text preprocessing, data cleaning, and LLM-ready content API.",
+  "seoTitle": "HTML Cleaner for Web Scraping and AI Agents - Fast Text Extraction",
+  "seoDescription": "Clean HTML text extraction for web scrapers, RAG pipelines, and AI agents. Strip JavaScript and CSS from raw HTML instantly. 14-56x faster than BeautifulSoup. API-first, MCP-ready.",
   "categories": [
     "AI",
-    "DEVELOPER_TOOLS"
+    "DEVELOPER_TOOLS",
+    "WEB_SCRAPING",
+    "DATA_PROCESSING"
   ],
   "tags": [
     "html",
     "cleaner",
+    "text-extraction",
+    "web-scraping",
     "rag",
     "llm",
-    "text-extraction",
+    "ai-agents",
     "rust",
-    "deterministic",
-    "enterprise",
-    "security"
+    "api",
+    "deterministic"
   ],
   "dockerfile": "./Dockerfile",
   "dockerContext": "./",
