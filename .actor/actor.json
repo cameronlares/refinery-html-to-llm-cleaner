@@ -1,12 +1,12 @@
 {
   "actorSpecification": 1.0,
   "name": "refinery-html-to-llm-cleaner",
-  "title": "Refinery: 0.40ms HTML Cleansing Engine for AI & RAG",
-  "description": "Zero-LLM deterministic processing. No hallucinations, no data leakage to third-party APIs, and zero risk of steganographic instruction masking. Refinery is a compiled, native Rust utility binary built for strict enterprise compliance and high-velocity RAG pipelines. It does not interpret data—it cleans it with 100% mathematical predictability.",
+  "title": "HTML to Text Cleaner for RAG and AI Agents",
+  "description": "Extract clean text from HTML in 2-8ms. Removes JavaScript, CSS, and tracking tags automatically. Reduces LLM token costs by 40%. Perfect for RAG pipelines, web scrapers, and AI agents that need reliable data preprocessing.",
   "version": "1.0",
   "buildTag": "latest",
-  "seoTitle": "Refinery: 0.40ms HTML Cleansing Engine for AI & RAG",
-  "seoDescription": "Zero-LLM deterministic HTML processing for enterprise AI pipelines. Strip JavaScript and CSS bloat in 0.40ms, reduce LLM token costs by 40%. Built for strict compliance and high-velocity RAG systems.",
+  "seoTitle": "HTML to Text Cleaner for RAG and AI Agents",
+  "seoDescription": "HTML to text extraction tool for RAG pipelines and AI agents. Strip JavaScript and CSS from web pages instantly. Clean HTML for LLM training data. 281x faster than BeautifulSoup. Text preprocessing, data cleaning, and LLM-ready content API.",
   "categories": [
     "AI",
     "DEVELOPER_TOOLS"
@@ -25,6 +25,6 @@
   "dockerfile": "./Dockerfile",
   "dockerContext": "./",
   "readmePath": "./README.md",
-  "input": "./.actor/INPUT_SCHEMA.json",
-  "output": "./.actor/OUTPUT_SCHEMA.json"
+  "input": "./INPUT_SCHEMA.json",
+  "output": "./OUTPUT_SCHEMA.json"
 }

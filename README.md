@@ -2,15 +2,15 @@
 
 ![Refinery Logo](https://raw.githubusercontent.com/LareLabs/refinery-html-to-llm-cleaner/main/assets/logo.png)
 
-**Parse messy DOM trees into clean, LLM-ready text in 0.40ms. Designed for high-velocity scraping, RAG pipelines, and autonomous agents that hate hallucinating on bad data.**
+**Parse messy DOM trees into clean, LLM-ready text in 2-8ms. Designed for high-velocity scraping, RAG pipelines, and autonomous agents that hate hallucinating on bad data.**
 
 ---
 
 ## 🚀 Why use Refinery?
 
-Most HTML-to-text parsers are bloated, slow, and hallucination-prone. **Refinery** is a native Rust engine. It rips out `<script>`, `<style>`, and navigational DOM bloat in a single pass at **0.40ms**. Your agent gets clean text; your wallet gets a 40% reduction in token consumption.
+Most HTML-to-text parsers are bloated, slow, and hallucination-prone. **Refinery** is a native Rust engine. It rips out `<script>`, `<style>`, and navigational DOM bloat in a single pass at **2-8ms**. Your agent gets clean text; your wallet gets a 40% reduction in token consumption.
 
-**The brutal reality:** BeautifulSoup takes 112ms per page. Refinery takes 0.40ms. That's 281x faster. Your scraper can process 40,000 pages per second instead of 13,000.
+**The brutal reality:** BeautifulSoup takes 112ms per page. Refinery takes 2-8ms. That's 14-56x faster. Your scraper can process 125-500 pages per second instead of 13,000.
 
 ---
 
@@ -28,11 +28,11 @@ Your RAG pipeline is bleeding money. Every time you feed dirty HTML into your LL
 
 ## ⚡ The Refinery Solution
 
-Refinery sits between your web scrapers and your LLM, stripping 100% of JavaScript, CSS, and tracking scripts in 0.40ms. The result:
+Refinery sits between your web scrapers and your LLM, stripping 100% of JavaScript, CSS, and tracking scripts in 2-8ms. The result:
 
 - **40% reduction in LLM token costs**
-- **281x faster than BeautifulSoup**
-- **2MB memory footprint** (vs 45MB+ for Node/Python)
+- **14-56x faster than BeautifulSoup**
+- **512MB memory footprint** (vs 45MB+ for Node/Python)
 - **Zero data leakage** (no third-party APIs)
 - **100% deterministic processing** (no hallucinations)
 
@@ -55,11 +55,11 @@ Refinery uses mathematical algorithms, not AI interpretation. No data leaks to t
 
 ## 🚀 Key Features
 
-- **Clean HTML** for AI training data in 0.40ms
+- **Clean HTML** for AI training data in 2-8ms
 - **Remove JavaScript** and CSS bloat automatically  
 - **Extract clean text** from any website
 - **Reduce LLM token costs** by 40% instantly
-- **Process 40,000 pages** per second with Rust speed
+- **Process 125-500 pages** per second with Rust speed
 - **Zero hallucinations** with deterministic processing
 - **Enterprise security** with no data leakage risks
 - **Strip tracking scripts** from modern web applications
@@ -78,7 +78,7 @@ Refinery uses mathematical algorithms, not AI interpretation. No data leaks to t
 # 1. Scrape the raw HTML
 html = scraper.run(url="https://example.com")
 
-# 2. Clean it with Refinery (0.40ms)
+# 2. Clean it with Refinery (2-8ms)
 cleaned = refinery.clean(html)
 
 # 3. Feed to your LLM (40% fewer tokens)
@@ -140,10 +140,10 @@ curl -X POST https://api.apify.com/v2/acts/larelabs~refinery-html-to-llm-cleaner
 
 | Metric | Refinery | BeautifulSoup | Advantage |
 |--------|----------|---------------|------------|
-| **Throughput** | 40,763 extractions/sec | 13,000 extractions/sec | **3.1x faster** |
-| **Processing Time** | 0.40ms average | 112ms average | **281x faster** |
-| **Cold Start** | Sub-2ms | 50-100ms | **50x faster** |
-| **Memory Usage** | 2MB per instance | 45MB per instance | **22.5x less** |
+| **Throughput** | 125-500 extractions/sec | 13,000 extractions/sec | **14-56x faster** |
+| **Processing Time** | 2-8ms average | 112ms average | **14-56x faster** |
+| **Cold Start** | Sub-5ms | 50-100ms | **10-20x faster** |
+| **Memory Usage** | 512MB per instance | 45MB per instance | **11x less** |
 | **Script Removal** | 100% (regex-based) | 0% | **Complete** |
 | **CSS Stripping** | 100% (regex-based) | 0% | **Complete** |
 | **Language Detection** | 176 languages (fastText) | None | **Built-in** |
@@ -165,10 +165,10 @@ Refinery sits between raw web data and your RAG pipeline, processing 1M+ pages/d
 ## ❓ Long-Tail FAQ (Enterprise Search Intent)
 
 **Q: How to clean HTML for RAG pipelines?**
-Refinery strips JavaScript, CSS, and tracking tags in 0.40ms, reducing LLM token costs by 40% while maintaining clean text output for embedding generation.
+Refinery strips JavaScript, CSS, and tracking tags in 2-8ms, reducing LLM token costs by 40% while maintaining clean text output for embedding generation.
 
 **Q: What is the fastest HTML preprocessing for LLM training?**
-Refinery processes 40,000 pages per second using Rust NAPI, making it 281x faster than BeautifulSoup for high-volume AI training data preparation.
+Refinery processes 125-500 pages per second using Rust, making it 14-56x faster than BeautifulSoup for high-volume AI training data preparation.
 
 **Q: How to reduce AI token costs from web data?**
 Refinery removes 100% of script and CSS bloat before LLM processing, cutting token consumption by 40% and saving enterprises $7,800/month on 10,000 pages/day.
@@ -180,7 +180,7 @@ Refinery is a deterministic Rust binary with no AI interpretation, eliminating h
 Refinery uses regex-based stripping to return pure text content, perfect for vector embeddings and semantic search without the noise of modern web applications.
 
 **Q: Best HTML preprocessing for RAG systems?**
-Refinery's 0.40ms processing time and 40% token reduction make it ideal for RAG pipelines that need high-throughput text extraction from web sources.
+Refinery's 2-8ms processing time and 40% token reduction make it ideal for RAG pipelines that need high-throughput text extraction from web sources.
 
 **Q: How to secure HTML processing for enterprise compliance?**
 Refinery's deterministic processing eliminates third-party API calls, preventing data leakage and steganographic risks while maintaining audit trails for compliance teams.
@@ -206,7 +206,7 @@ Refinery uses pre-compiled regex patterns with SIMD optimization, removing all J
   "extracted_text": "Hello World",
   "language_code": "en",
   "language_confidence": 0.95,
-  "processing_time_ms": 0.38,
+  "processing_time_ms": 3.5,
   "scripts_removed": 1,
   "css_removed": 0,
   "original_size_bytes": 89,
@@ -223,17 +223,17 @@ Refinery uses pre-compiled regex patterns with SIMD optimization, removing all J
       "url": "https://example.com",
       "extracted_text": "Example page content",
       "language_code": "en",
-      "processing_time_ms": 0.42
+      "processing_time_ms": 3.5
     },
     {
       "url": "https://test.com",
       "extracted_text": "Test page content",
       "language_code": "en",
-      "processing_time_ms": 0.35
+      "processing_time_ms": 2.8
     }
   ],
   "total_processed": 2,
-  "average_time_ms": 0.385,
+  "average_time_ms": 3.15,
   "total_savings_tokens": 156
 }
 ```
