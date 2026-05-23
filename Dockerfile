@@ -1,4 +1,5 @@
-FROM python:3.12-slim
+# Multi-stage Dockerfile for Refinery Cloud API
+FROM python:3.12-slim as base
 
 # Install system dependencies including Rust
 RUN apt-get update && apt-get install -y \
@@ -20,17 +21,18 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copy Rust source and build
 COPY Cargo.toml Cargo.lock ./
 COPY src ./src/
+COPY assets ./assets/
 
 # Build and install Rust core
 RUN pip install maturin && \
     maturin build --release && \
-    pip install target/wheels/refinery_core-0.1.0-cp312-cp312-linux_x86_64.whl
+    pip install target/wheels/refinery_cloud-*.whl
 
-# Copy FastAPI application
-COPY app/ ./app/
+# Copy Apify actor entry point
+COPY src/main.py ./src/main.py
 
-# Expose port
-EXPOSE 8000
+# Install Apify SDK
+RUN pip install apify
 
-# Run the actor
-CMD ["python", "-m", "refinery"]
+# Run the Apify actor
+CMD ["python", "src/main.py"]
