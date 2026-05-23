@@ -1,0 +1,34 @@
+{
+  "$id": "https://raw.githubusercontent.com/apify/actor-dataset-schema/master/schemas/output-schema.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Output Schema for Refinery HTML Cleaner",
+  "type": "object",
+  "description": "Output schema for Refinery HTML Cleaner actor",
+  "properties": {
+    "extracted_text": {
+      "type": "string",
+      "description": "Cleaned text extracted from HTML"
+    },
+    "processing_time_ms": {
+      "type": "number",
+      "description": "Processing time in milliseconds"
+    },
+    "scripts_removed": {
+      "type": "boolean",
+      "description": "Whether script tags were removed"
+    },
+    "styles_removed": {
+      "type": "boolean",
+      "description": "Whether style tags were removed"
+    },
+    "original_size": {
+      "type": "number",
+      "description": "Original HTML size in characters"
+    },
+    "cleaned_size": {
+      "type": "number",
+      "description": "Cleaned text size in characters"
+    }
+  },
+  "required": ["extracted_text"]
+}
