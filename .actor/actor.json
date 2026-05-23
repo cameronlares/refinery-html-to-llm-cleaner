@@ -28,6 +28,6 @@
   "dockerfile": "./Dockerfile",
   "dockerContext": "./",
   "readmePath": "./README.md",
-  "input": "./.actor/INPUT_SCHEMA.json",
-  "output": "./.actor/OUTPUT_SCHEMA.json"
+  "input": "./INPUT_SCHEMA.json",
+  "output": "./OUTPUT_SCHEMA.json"
 }
