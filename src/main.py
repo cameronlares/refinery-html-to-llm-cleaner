@@ -1,13 +1,56 @@
 """
-Refinery HTML to Text Cleaner - Apify Actor
+Refinery HTML to Text Cleaner - Apify Actor (Pure Python)
 Ultra-fast HTML text extraction for RAG and AI agents
 """
 
 import asyncio
 import json
 import time
+import re
 import httpx
 from apify import Actor
+
+def extract_text_simple(html: str, remove_scripts: bool = True, remove_styles: bool = True) -> dict:
+    """Simple HTML text extraction using regex"""
+    start_time = time.time()
+    
+    text = html
+    
+    # Remove script tags
+    if remove_scripts:
+        script_regex = re.compile(r'<script[^>]*>.*?</script>', re.DOTALL | re.IGNORECASE)
+        text = script_regex.sub('', text)
+        scripts_removed = True
+    else:
+        scripts_removed = False
+    
+    # Remove style tags
+    if remove_styles:
+        style_regex = re.compile(r'<style[^>]*>.*?</style>', re.DOTALL | re.IGNORECASE)
+        text = style_regex.sub('', text)
+        styles_removed = True
+    else:
+        styles_removed = False
+    
+    # Remove all HTML tags
+    html_regex = re.compile(r'<[^>]*>')
+    text = html_regex.sub(' ', text)
+    
+    # Clean up whitespace
+    whitespace_regex = re.compile(r'\s+')
+    text = whitespace_regex.sub(' ', text.strip())
+    
+    # Calculate processing time
+    processing_time = (time.time() - start_time) * 1000
+    
+    return {
+        'extracted_text': text,
+        'processing_time_ms': round(processing_time, 2),
+        'scripts_removed': scripts_removed,
+        'styles_removed': styles_removed,
+        'original_size': len(html),
+        'cleaned_size': len(text)
+    }
 
 async def fetch_url(url: str) -> str:
     """Fetch HTML content from a URL"""
@@ -59,26 +102,9 @@ async def main():
         
         Actor.log.info(f'Processing HTML payload ({len(html)} bytes)')
         
-        start_time = time.time()
-        
         try:
-            # Import refinery core
-            import refinery_core
-            
-            # Process HTML with Refinery
-            result_json = refinery_core.refinery_json(html)
-            
-            Actor.log.info(f'Refinery returned: {type(result_json)}')
-            
-            # Handle if result is already a dict or needs parsing
-            if isinstance(result_json, dict):
-                result = result_json
-            else:
-                result = json.loads(result_json)
-            
-            # Add performance metrics
-            processing_time = (time.time() - start_time) * 1000
-            result['processing_time_ms'] = round(processing_time, 2)
+            # Process HTML with simple Python implementation
+            result = extract_text_simple(html, remove_scripts, remove_styles)
             result['success'] = True
             
             # Apply options
@@ -95,7 +121,7 @@ async def main():
             if not extract_hashtags:
                 result.pop('hashtags', None)
             
-            Actor.log.info(f'Extraction complete in {processing_time:.2f}ms')
+            Actor.log.info(f'Extraction complete in {result["processing_time_ms"]:.2f}ms')
             
             # Push output to Apify
             await Actor.push_data(result)
