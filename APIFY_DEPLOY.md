@@ -56,7 +56,27 @@ Do **not** create `1.2` unless you mean to. After a mistaken `1.2` push, clear i
 - `1.1` → `buildTag: latest` (and point global `latest` at the last green **1.1.x** build)
 - `1.0` / `1.2` → `buildTag: null`
 
-**Current (fixed):** global `latest` = build **1.1.39**; only version **1.1** shows `(latest)`.
+**Current (fixed):** global `latest` = build **1.1.48+**; only version **1.1** shows `(latest)`.
+
+## Store README (Console + public listing)
+
+Git **Build** updates the Docker image but **does not always refresh** the README shown under **Information → latest → readme**. That tab uses **version `sourceFiles`**, which can stay on an old tarball.
+
+After editing `README.md` (or running `scripts/embed_store_readme.py`):
+
+```bash
+cd /root/ACTIVE_PROJECTS/refinery/refinery-rust
+python3 scripts/sync_store_readme.py   # PUT README to version 1.1
+```
+
+Then hard-refresh the Console README page. Optional: **Build** version **1.1** from Git so `latest` matches.
+
+**Store title / short description** (card on apify.com) come from the **actor** record, not README alone:
+
+```bash
+# Or update in Console → Publication → Store listing
+apify info   # must be larelabs
+```
 
 ## Store README images
 
@@ -68,4 +88,6 @@ Do **not** create `1.2` unless you mean to. After a mistaken `1.2` push, clear i
 
 ## GitHub
 
-Apify builds from **CLI push** here unless you explicitly wire GitHub → Apify in the **Lare Labs** org console. Pushes to GitHub do not update the Store listing unless that integration is on the org actor.
+Version **1.1** is wired to `https://github.com/LareLabs/refinery-html-to-llm-cleaner` (`main`). Use **Build** in Console for code; use **`sync_store_readme.py`** when only the Store README changed.
+
+Do **not** rely on `apify push` until CLI Docker builds stop failing with Apify “unexpected system error” — and never use `*.md` in `.apifyignore` (see above).
