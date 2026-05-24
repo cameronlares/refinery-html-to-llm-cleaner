@@ -1,23 +1,32 @@
 #!/usr/bin/env python3
-"""Generate README.md with CDN-hosted store images for Apify Store."""
+"""Generate README.md with Store-safe image URLs for Apify Store."""
 
 from __future__ import annotations
 
+import json
 import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 ASSETS = ROOT / "assets" / "store"
 README = ROOT / "README.md"
+URLS_FILE = ASSETS / "image_urls.json"
 MAX_README_BYTES = 250_000
-CDN_BASE = "https://cdn.jsdelivr.net/gh/LareLabs/refinery-html-to-llm-cleaner@main/assets/store"
 
 
-def image_markdown(filename: str, alt: str) -> str:
-    return f"![{alt}]({CDN_BASE}/{filename})"
+def image_markdown(filename: str, alt: str, urls: dict[str, str]) -> str:
+    url = urls.get(filename)
+    if not url:
+        raise KeyError(f"Missing URL for {filename} in {URLS_FILE}")
+    return f"![{alt}]({url})"
 
 
 def main() -> int:
+    if not URLS_FILE.is_file():
+        print(f"Missing {URLS_FILE}", file=sys.stderr)
+        return 1
+    urls = json.loads(URLS_FILE.read_text(encoding="utf-8"))
+
     images = {
         "flow": ("flow-pipeline.webp", "Refinery pipeline: raw HTML to clean JSON for RAG"),
         "before_after": (
@@ -48,7 +57,7 @@ def main() -> int:
         if not p.is_file():
             print(f"Missing {p}", file=sys.stderr)
             return 1
-        embedded[key] = image_markdown(filename, alt)
+        embedded[key] = image_markdown(filename, alt, urls)
         print(f"  {filename}: {p.stat().st_size:,} bytes")
 
     body = f"""# Refinery — Clean HTML for RAG & LLM pipelines
@@ -248,7 +257,7 @@ print(next(client.dataset(run["defaultDatasetId"]).iterate_items()))
 
 ---
 
-*Rust core · Apify Actor · Update `assets/store/*.webp`, push to GitHub, then run `python scripts/embed_store_readme.py` and `python scripts/sync_store_readme.py`.*
+*Rust core · Apify Actor · Update WebPs in `assets/store/`, upload PNGs to Imgur, edit `image_urls.json`, then run embed + sync scripts.*
 """
 
     README.write_text(body, encoding="utf-8")

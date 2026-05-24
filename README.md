@@ -6,13 +6,13 @@ Pay **$0.002/page** · **~2–8ms** clean step (after your crawler fetches the p
 [![Price](https://img.shields.io/badge/price-%240.002%2Fpage-blue)](https://apify.com/larelabs/refinery-html-to-llm-cleaner/pricing)
 [![Speed](https://img.shields.io/badge/speed-2--8ms%2Fpage-brightgreen)]()
 
-![Refinery pipeline: raw HTML to clean JSON for RAG](https://cdn.jsdelivr.net/gh/LareLabs/refinery-html-to-llm-cleaner@main/assets/store/flow-pipeline.webp)
+![Refinery pipeline: raw HTML to clean JSON for RAG](https://i.imgur.com/rKLRTc1.png)
 
 ---
 
 ## Before vs after (why RAG teams use this)
 
-![Token reduction: bloated HTML vs clean text after Refinery](https://cdn.jsdelivr.net/gh/LareLabs/refinery-html-to-llm-cleaner@main/assets/store/before-after-tokens.webp)
+![Token reduction: bloated HTML vs clean text after Refinery](https://i.imgur.com/RxmHFBz.png)
 
 Same page class as a news homepage — **up to ~97% fewer estimated tokens** on heavy DOM (your mileage varies).
 
@@ -22,7 +22,7 @@ Same page class as a news homepage — **up to ~97% fewer estimated tokens** on 
 
 Scraped timelines and comment threads ship **messy DOM** — scripts, sidebars, and nested widgets. Refinery keeps **post body text** and normalizes **@mentions** / **#topics** for chunking without paying for chrome.
 
-![Social and feed HTML: mentions and hashtags preserved as clean text](https://cdn.jsdelivr.net/gh/LareLabs/refinery-html-to-llm-cleaner@main/assets/store/social-feed-html.webp)
+![Social and feed HTML: mentions and hashtags preserved as clean text](https://i.imgur.com/C6fISu7.png)
 
 Paste `raw_payload` from your scraper, or pass URLs if you already fetch HTML elsewhere.
 
@@ -32,7 +32,7 @@ Paste `raw_payload` from your scraper, or pass URLs if you already fetch HTML el
 
 Run **Try actor** with the prefilled `example.com` URL — output lands in the dataset like this:
 
-![Apify dataset output: clean text, word count, and timing](https://cdn.jsdelivr.net/gh/LareLabs/refinery-html-to-llm-cleaner@main/assets/store/console-output-demo.webp)
+![Apify dataset output: clean text, word count, and timing](https://i.imgur.com/tZytWi2.png)
 
 ---
 
@@ -40,7 +40,7 @@ Run **Try actor** with the prefilled `example.com` URL — output lands in the d
 
 Send **many URLs in one run** — each row in the dataset gets `text`, `word_count`, and timing. Ideal after a crawl batch or sitemap pass.
 
-![Bulk URL mode: many pages in, dataset rows out](https://cdn.jsdelivr.net/gh/LareLabs/refinery-html-to-llm-cleaner@main/assets/store/bulk-urls-mode.webp)
+![Bulk URL mode: many pages in, dataset rows out](https://i.imgur.com/GPYU1hT.png)
 
 ```json
 {
@@ -133,7 +133,7 @@ Your crawler → raw HTML → Refinery → clean text → chunk → embed → LL
 
 ## Where Refinery fits
 
-![Refinery in your stack: crawler, clean, vector DB, LLM](https://cdn.jsdelivr.net/gh/LareLabs/refinery-html-to-llm-cleaner@main/assets/store/stack-integrations.webp)
+![Refinery in your stack: crawler, clean, vector DB, LLM](https://i.imgur.com/mBbhQwd.png)
 
 | You already use… | Refinery's job |
 |------------------|----------------|
@@ -195,4 +195,4 @@ print(next(client.dataset(run["defaultDatasetId"]).iterate_items()))
 
 ---
 
-*Rust core · Apify Actor · Update `assets/store/*.webp`, push to GitHub, then run `python scripts/embed_store_readme.py` and `python scripts/sync_store_readme.py`.*
+*Rust core · Apify Actor · Update WebPs in `assets/store/`, upload PNGs to Imgur, edit `image_urls.json`, then run embed + sync scripts.*

@@ -80,11 +80,16 @@ apify info   # must be larelabs
 
 ## Store README images
 
-- Apify **does not render** `raw.githubusercontent.com` URLs or large **base64 data URIs** in the Store README (broken icons / raw base64 text on the page).
-- Host images in `assets/store/*.webp`, **push to GitHub**, reference via **jsDelivr CDN** in README:
-  `https://cdn.jsdelivr.net/gh/LareLabs/refinery-html-to-llm-cleaner@main/assets/store/<file>.webp`
-- After changing images or copy: `python3 scripts/embed_store_readme.py` then `python3 scripts/sync_store_readme.py`.
-- Keep WebP assets ~20–80KB each; README stays small (URLs only, not embedded blobs).
+- Apify Store **does not render** `raw.githubusercontent.com`, **jsDelivr**, or large **base64 data URIs** in the HTML listing (broken icons / raw base64 text).
+- Working actors use **Imgur** (`i.imgur.com`) or **Apify’s image proxy** (`images.apifyusercontent.com`).
+- Workflow: keep source WebPs in `assets/store/`, upload PNGs to Imgur, save links in `assets/store/image_urls.json`, then:
+
+```bash
+python3 scripts/embed_store_readme.py
+python3 scripts/sync_store_readme.py
+```
+
+- Shields.io badges are fine. Keep README text-only aside from Imgur screenshots (~5–10KB total).
 - **Do not** use `*.md` in `.apifyignore` — it can exclude `README.md` and leave the Console stuck on an old Store README.
 
 ## GitHub
