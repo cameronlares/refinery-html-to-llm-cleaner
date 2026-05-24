@@ -347,7 +347,13 @@ fn extract_text(html_str: String, selector: String) -> PyResult<String> {
         .collect::<Vec<_>>()
         .join(" ");
     
-    Ok(final_text)
+    // Return as JSON structure for refinery_json compatibility
+    let result = serde_json::json!({
+        "text": final_text,
+        "success": true
+    });
+    
+    Ok(result.to_string())
 }
 
 /// PREMIUM: Basic CSS selector extraction
