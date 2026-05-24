@@ -13,6 +13,9 @@ COPY app/ ./app/
 COPY src/ ./src/
 COPY refinery_core_src/ ./refinery_core_src/
 
+# Force cache bust with timestamp
+RUN echo "cache_bust_$(date +%s)" > /tmp/.cache_bust
+
 # Expose port
 EXPOSE 8000
 
