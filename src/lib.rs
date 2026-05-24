@@ -590,14 +590,14 @@ fn refinery_json(html: String) -> PyResult<String> {
     // Extract mentions and hashtags with proper word boundaries
     let text = result["text"].as_str().unwrap_or("").to_string();
     
-    // Use regex patterns with word boundaries to avoid false positives
-    // Mentions: @username with word boundary at end (to exclude punctuation)
+    // Use regex patterns without word boundaries for better matching
+    // Mentions: @username (will filter out punctuation manually)
     static MENTION_RE: Lazy<Regex> = Lazy::new(|| 
-        Regex::new(r"@(\w{1,15})\b").unwrap()
+        Regex::new(r"@(\w{1,15})").unwrap()
     );
-    // Hashtags: #hashtag with word boundary at end (to exclude punctuation)
+    // Hashtags: #hashtag (will filter out punctuation manually)
     static HASHTAG_RE: Lazy<Regex> = Lazy::new(|| 
-        Regex::new(r"#(\w{1,30})\b").unwrap()
+        Regex::new(r"#(\w{1,30})").unwrap()
     );
     
     // Extract mentions with proper boundaries (limit to 15 chars like Twitter)
@@ -611,6 +611,28 @@ fn refinery_json(html: String) -> PyResult<String> {
         .filter_map(|caps| caps.get(1))
         .map(|m| format!("#{}", m.as_str()))
         .collect();
+    
+    // Strip trailing punctuation from mentions
+    for mention in &mut mentions {
+        while let Some(last_char) = mention.chars().last() {
+            if !last_char.is_alphanumeric() && last_char != '_' {
+                mention.pop();
+            } else {
+                break;
+            }
+        }
+    }
+    
+    // Strip trailing punctuation from hashtags
+    for hashtag in &mut hashtags {
+        while let Some(last_char) = hashtag.chars().last() {
+            if !last_char.is_alphanumeric() && last_char != '_' {
+                hashtag.pop();
+            } else {
+                break;
+            }
+        }
+    }
     
     // Sort for deterministic output
     mentions.sort();
