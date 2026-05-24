@@ -1,61 +1,59 @@
 {
-  "title": "HTML to Text Cleaner",
+  "title": "Refinery — HTML for RAG / LLM",
   "type": "object",
   "schemaVersion": 1,
-  "description": "Extract clean text from HTML by removing JavaScript, CSS, and tracking tags. Perfect for RAG pipelines, LLM training data, and AI agent workflows. 281x faster than BeautifulSoup.",
+  "description": "Clean HTML for RAG and LLM pipelines. Paste HTML or pass URLs. Strips scripts, CSS, and layout noise. Returns text + word_count for token budgeting.",
   "properties": {
-    "raw_payload": {
-      "title": "HTML Content",
-      "type": "string",
-      "description": "Paste HTML content to clean. Example: '<h1>Article Title</h1><script>track()</script><p>Content here</p>'",
-      "editor": "textarea",
-      "minLength": 1,
-      "sectionCaption": "Input"
-    },
     "urls": {
-      "title": "URLs to Process",
+      "title": "URLs to clean",
       "type": "array",
-      "description": "Enter URLs to fetch and process. Example: ['https://example.com/article']",
+      "description": "Fetch each URL and return clean text. Best for Demo 1 (example.com) or Demo 2 (bbc.com/news) from the README.",
       "items": {
         "type": "string"
       },
       "editor": "stringList",
-      "sectionCaption": "Input"
+      "prefill": ["https://example.com"],
+      "sectionCaption": "Quick try — URL mode"
     },
-    "includeMetadata": {
-      "title": "Include Metadata",
-      "type": "boolean",
-      "description": "Return language detection, word count, and processing time",
-      "default": true,
-      "sectionCaption": "Options"
+    "raw_payload": {
+      "title": "HTML to clean (paste)",
+      "type": "string",
+      "description": "Paste raw HTML from your crawler. Use when you already have HTML on disk or in your pipeline (see README Demo 3).",
+      "editor": "textarea",
+      "prefill": "<html><head><script>gtag('event','page_view')</script><style>.nav,.footer{display:block}</style></head><body><nav>Home · Pricing · Login</nav><article><h1>Quarterly update</h1><p>We reduced embedding cost by cleaning HTML before chunking.</p></article><footer>© 2026 · Legal · Careers</footer></body></html>",
+      "sectionCaption": "Or paste HTML"
     },
     "removeScripts": {
-      "title": "Remove Scripts",
+      "title": "Remove scripts",
       "type": "boolean",
-      "description": "Strip JavaScript and tracking scripts from HTML",
+      "description": "Strip JavaScript and tracking scripts",
       "default": true,
       "sectionCaption": "Options"
     },
     "removeStyles": {
-      "title": "Remove Styles",
+      "title": "Remove styles",
       "type": "boolean",
-      "description": "Strip CSS and style tags from HTML",
-      "default": true,
-      "sectionCaption": "Options"
+      "description": "Strip CSS and style tags",
+      "default": true
+    },
+    "includeMetadata": {
+      "title": "Include metadata",
+      "type": "boolean",
+      "description": "Return language, word_count, and processing_time_ms",
+      "default": true
     },
     "extractMentions": {
-      "title": "Extract Mentions",
+      "title": "Extract @mentions",
       "type": "boolean",
-      "description": "Extract @mentions from social media content",
+      "description": "Pull @mentions from social HTML",
       "default": false,
       "sectionCaption": "Advanced"
     },
     "extractHashtags": {
-      "title": "Extract Hashtags",
+      "title": "Extract #hashtags",
       "type": "boolean",
-      "description": "Extract #hashtags from social media content",
-      "default": false,
-      "sectionCaption": "Advanced"
+      "description": "Pull hashtags from social HTML",
+      "default": false
     }
   },
   "required": []

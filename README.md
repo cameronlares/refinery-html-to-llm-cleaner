@@ -1,184 +1,221 @@
-# Refinery — HTML → LLM-ready text (fewer RAG tokens)
+# Refinery — Clean HTML for RAG & LLM pipelines
+
+**Strip scripts, nav, and layout junk from HTML before you chunk and embed.**  
+Pay **$0.002/page** · **~2–8ms** clean step (after your crawler fetches the page).
 
 [![Price](https://img.shields.io/badge/price-%240.002%2Fpage-blue)](https://apify.com/larelabs/refinery-html-to-llm-cleaner/pricing)
 [![Speed](https://img.shields.io/badge/speed-2--8ms%2Fpage-brightgreen)]()
 
-**Drop layout, scripts, and nav noise before you chunk and embed.** Use after Firecrawl, Crawl4AI, or your own fetch — $0.002/page.
+---
 
-> **Do not embed multi‑MB base64 images in this README.** Apify extracts it on every build; a ~5KB file is fine.
+## Who this is for
+
+- **RAG / agent builders** paying per token on bloated page HTML  
+- **Scrape pipelines** that already fetch HTML (Firecrawl, Crawl4AI, Playwright, Apify crawlers) and need a **cheap clean step**  
+- **Teams** who want deterministic text + `word_count` without running BeautifulSoup on every worker  
+
+**Refinery is not a crawler.** It does not discover URLs or render SPAs. It **cleans HTML you already have**.
+
+```
+Your crawler → raw HTML → Refinery → clean text → chunk → embed → LLM
+```
 
 ---
 
-## Proof (BBC News homepage, est. tokens = chars ÷ 4)
+## Try it now (3 demos)
+
+In Apify Console, open **Try actor** — **Demo 1** is prefilled. Or paste **Demo 2** / **Demo 3** below.
+
+### Demo 1 — Quick URL (fastest)
+
+Good first run: small page, proves fetch + clean works.
+
+```json
+{
+  "urls": ["https://example.com"],
+  "removeScripts": true,
+  "removeStyles": true,
+  "includeMetadata": true
+}
+```
+
+**You should see:** `success: true`, short `text`, `word_count`, `processing_time_ms` (~20ms including fetch).
+
+---
+
+### Demo 2 — Bloated news homepage (token savings)
+
+Shows why RAG teams care — huge DOM → small text.
+
+```json
+{
+  "urls": ["https://www.bbc.com/news"],
+  "removeScripts": true,
+  "removeStyles": true,
+  "includeMetadata": true
+}
+```
+
+**Typical result (varies by page):**
 
 | | Raw HTML | After Refinery |
 |--|----------|----------------|
-| Size | ~329 KB | ~10 KB text |
-| Est. tokens | ~82,000 | ~2,500 |
-| Words | — | ~1,656 |
+| Payload | ~330 KB | ~10 KB text |
+| Est. tokens (chars ÷ 4) | ~82,000 | ~2,500 |
+| Words returned | — | ~1,600 |
 
 ---
 
-## Why Refinery?
+### Demo 3 — Paste HTML (middleware mode)
 
-| Feature | Refinery | BeautifulSoup | Cheerio |
-|---------|----------|---------------|---------|
-| **Speed** | 2-8ms | 150-300ms | 50-120ms |
-| **Cost** | $0.002/page | Self-hosted cost | Self-hosted cost |
-| **Setup** | Zero config | Install + code | Install + code |
-| **Reliability** | Deterministic output | Depends on parser | Depends on parser |
-| **Scale** | 10,000+ pages/min | Limited by server | Limited by server |
-
-**281x faster than BeautifulSoup** for HTML cleaning operations.
-
----
-
-## What It Does
-
-1. **Strips noise** - Removes scripts, styles, tracking tags, ads, and metadata
-2. **Extracts content** - Pulls the main text content from any HTML structure
-3. **Detects language** - Identifies the language of the extracted text
-4. **Counts words** - Returns exact word count for billing and analysis
-5. **Extracts social data** - Optionally pulls @mentions and #hashtags
-
----
-
-## Quick Start
-
-### Input
+Use when your pipeline already has HTML strings (no fetch).
 
 ```json
 {
-  "raw_payload": "<html><head><script>track()</script></head><body><h1>Breaking News</h1><p>Content here</p><style>.ad{display:none}</style><div class='ad'>Buy now!</div></body></html>"
-}
-```
-
-### Output
-
-```json
-{
-  "text": "Breaking News\nContent here",
-  "language": "en",
-  "word_count": 4,
-  "content_type": "web",
-  "processing_time_ms": 3.12,
-  "success": true,
-  "mentions": [],
-  "hashtags": []
-}
-```
-
----
-
-## Real-World Examples
-
-### Web Scraping Pipeline
-
-**Input:** Raw HTML from any news site, blog, e-commerce page, or social media feed.
-
-**Processing:** Scripts removed, styles stripped, ads eliminated, content extracted.
-
-**Output:** Clean text ready for LLM ingestion, embedding generation, or storage.
-
-```json
-{
-  "text": "The quick brown fox jumps over the lazy dog. This is a sample of clean extracted content that would have been buried under navigation bars, sidebars, ads, and tracking scripts in the original HTML.",
-  "language": "en",
-  "word_count": 35,
-  "processing_time_ms": 2.87
-}
-```
-
-### Bulk URL Processing
-
-```json
-{
-  "urls": [
-    "https://example.com/article-1",
-    "https://example.com/article-2",
-    "https://example.com/article-3"
-  ],
+  "raw_payload": "<html><head><script>gtag('event','page_view')</script><style>.nav,.footer,.promo{display:block}</style></head><body><nav>Home · Pricing · Docs · Login</nav><article><h1>Quarterly update</h1><p>We reduced embedding cost by cleaning HTML before chunking.</p></article><footer>© 2026 · 40 footer links · consent banner</footer><script>window.__NEXT_DATA__={}</script></body></html>",
   "removeScripts": true,
-  "removeStyles": true
+  "removeStyles": true,
+  "includeMetadata": true
 }
 ```
+
+**You should see:** only the article heading + paragraph — no nav, scripts, or footer noise.
+
+---
+
+## What you get back
+
+Each run writes **one dataset item** per page:
+
+```json
+{
+  "text": "Quarterly update\nWe reduced embedding cost by cleaning HTML before chunking.",
+  "language": "en",
+  "word_count": 12,
+  "content_type": "web",
+  "processing_time_ms": 4.2,
+  "success": true
+}
+```
+
+| Field | Use it for |
+|-------|------------|
+| `text` | Chunking, embeddings, LLM context |
+| `word_count` | Cost estimates, quotas |
+| `processing_time_ms` | Latency monitoring |
+| `language` | Routing / locale |
+
+Optional: `extractMentions` / `extractHashtags` for social HTML.
+
+---
+
+## Where Refinery fits
+
+| You already use… | Refinery's job |
+|------------------|----------------|
+| Firecrawl, Crawl4AI, custom fetch | Clean their HTML output |
+| Apify Web Scraper / Playwright | Second step on `html` field |
+| `httpx` / `requests` + save HTML | Batch `urls` or paste `raw_payload` |
+| Self-hosted BeautifulSoup | Replace hot path; **~281× faster** on extraction in our benchmarks |
 
 ---
 
 ## Pricing
 
-| Event | Price |
-|-------|-------|
-| Actor Start | $0.00005 |
-| HTML Extraction | $0.002 |
-| Result Output | $0.00001 |
+| Event | Cost |
+|-------|------|
+| Actor start | $0.00005 |
+| HTML extraction | **$0.002** |
+| Result write | $0.00001 |
 
-**Example:** Processing 1,000 HTML pages costs approximately **$2.05**.
-
----
-
-## Input Options
-
-| Option | Type | Default | Description |
-|--------|------|---------|-------------|
-| `raw_payload` | string | - | HTML content to process (paste directly) |
-| `urls` | array | [] | URLs to fetch and process (bulk mode) |
-| `removeScripts` | boolean | true | Strip JavaScript and tracking scripts |
-| `removeStyles` | boolean | true | Strip CSS and style tags |
-| `includeMetadata` | boolean | true | Return language, word count, processing time |
-| `extractMentions` | boolean | false | Extract @mentions from social content |
-| `extractHashtags` | boolean | false | Extract #hashtags from social content |
+**~$2.05 per 1,000 pages** — often cheaper than sending full DOM text to GPT-4 class models.
 
 ---
 
-## Performance
+## Integrate
 
-- **Average latency:** 2-8ms per page
-- **Throughput:** 10,000+ pages/minute
-- **Payload limit:** 10MB per request
-- **Deterministic:** Same HTML always produces same output
-- **No rate limits:** Process as fast as you need
+### JavaScript
 
----
+```javascript
+import { ApifyClient } from 'apify-client';
 
-## Architecture
+const client = new ApifyClient({ token: process.env.APIFY_TOKEN });
 
-```
-HTML Input
-    |
-    v
-[Rust Core] -- High-performance extraction (2-8ms)
-    |
-    v
-[Python Wrapper] -- Apify Actor interface
-    |
-    v
-Clean Text + Metadata
+const run = await client.actor('larelabs/refinery-html-to-llm-cleaner').call({
+  urls: ['https://example.com'],
+  removeScripts: true,
+  removeStyles: true,
+});
+
+const { items } = await client.dataset(run.defaultDatasetId).listItems();
+console.log(items[0].text, items[0].word_count);
 ```
 
-The Rust core handles all HTML parsing and text extraction. The Python wrapper manages Apify integration, URL fetching, and output formatting.
+### Python
+
+```python
+from apify_client import ApifyClient
+import os
+
+client = ApifyClient(os.environ["APIFY_TOKEN"])
+run = client.actor("larelabs/refinery-html-to-llm-cleaner").call(
+    run_input={
+        "urls": ["https://example.com"],
+        "removeScripts": True,
+        "removeStyles": True,
+    }
+)
+item = next(client.dataset(run["defaultDatasetId"]).iterate_items())
+print(item["text"], item["word_count"])
+```
+
+### cURL
+
+```bash
+curl -X POST "https://api.apify.com/v2/acts/larelabs~refinery-html-to-llm-cleaner/runs?token=$APIFY_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{"urls":["https://example.com"],"removeScripts":true,"removeStyles":true}'
+```
 
 ---
 
-## Use Cases
+## Input options
 
-- **RAG Pipelines** - Clean HTML before chunking and embedding
-- **LLM Training Data** - Strip noise from web-scraped datasets
-- **Web Scraping** - Extract content from any site structure
-- **Social Media Analysis** - Extract mentions and hashtags
-- **Content Aggregation** - Normalize HTML from multiple sources
-- **SEO Analysis** - Extract text for keyword analysis
+| Field | Description |
+|-------|-------------|
+| `urls` | Fetch + clean (one or many URLs) |
+| `raw_payload` | Clean HTML you already fetched |
+| `removeScripts` | Default `true` — strips JS, trackers |
+| `removeStyles` | Default `true` — strips CSS |
+| `includeMetadata` | Default `true` — word count, language, timing |
+| `extractMentions` / `extractHashtags` | Optional, for social HTML |
+
+**Limit:** 10 MB HTML per request.
+
+---
+
+## FAQ
+
+**Is this a replacement for Firecrawl?**  
+No. Firecrawl fetches; Refinery **cleans**. Use both.
+
+**Why Apify instead of BeautifulSoup on my server?**  
+No parser ops to maintain, scales on Apify, predictable **$0.002/page**, Rust core for speed.
+
+**Will it work on every site?**  
+Heavy SPAs may need a browser crawler first; Refinery cleans the HTML you give it. Marketing pages and articles see the biggest token wins.
+
+**How do I bulk process?**  
+Pass multiple URLs in `urls` or call the Actor in parallel from your pipeline.
 
 ---
 
 ## Support
 
-**Organization:** LareLabs  
-**Actor ID:** `jOcx8jK2FdhZhoKrE`  
-**Console:** https://console.apify.com/actors/jOcx8jK2FdhZhoKrE
+**LareLabs** · [Apify Store listing](https://apify.com/larelabs/refinery-html-to-llm-cleaner) · Actor ID `jOcx8jK2FdhZhoKrE`
 
-For issues or feature requests, contact through Apify Console.
+Issues via [Apify Console](https://console.apify.com/organization/vTZ0XDFG4cZCNAdQl/actors/jOcx8jK2FdhZhoKrE).
 
 ---
 
-*Built with Rust and Python. Production-ready. Deployed on Apify infrastructure.*
+*Rust extraction core · Python Apify Actor · Production on Apify.*
