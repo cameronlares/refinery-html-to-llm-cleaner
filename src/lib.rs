@@ -591,16 +591,16 @@ fn refinery_json(html: String) -> PyResult<String> {
     let text = result["text"].as_str().unwrap_or("").to_string();
     
     // Use regex patterns with word boundaries to avoid false positives
-    // Mentions: @username at word boundary, not preceded by word character (excludes emails)
+    // Mentions: @username at word boundary (Rust regex doesn't support look-behind)
     static MENTION_RE: Lazy<Regex> = Lazy::new(|| 
-        Regex::new(r"(?<!\w)@(\w{1,15})\b").unwrap()
+        Regex::new(r"\b@(\w{1,15})\b").unwrap()
     );
     // Hashtags: #hashtag at word boundary
     static HASHTAG_RE: Lazy<Regex> = Lazy::new(|| 
-        Regex::new(r"(?<!\w)#(\w{1,30})\b").unwrap()
+        Regex::new(r"\b#(\w{1,30})\b").unwrap()
     );
     
-    // Extract mentions with proper boundaries (exclude emails, limit to 15 chars like Twitter)
+    // Extract mentions with proper boundaries (limit to 15 chars like Twitter)
     let mut mentions: Vec<String> = MENTION_RE.captures_iter(&text)
         .filter_map(|caps| caps.get(1))
         .map(|m| format!("@{}", m.as_str()))
