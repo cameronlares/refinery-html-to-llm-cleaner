@@ -12,7 +12,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY app/ ./app/
 COPY src/ ./src/
 # Force cache bust for refinery_core_src by using build arg
-ARG REFINERY_VERSION=1.1.22
+ARG REFINERY_VERSION=1.1.23
 COPY refinery_core_src/ ./refinery_core_src/
 
 # Expose port
