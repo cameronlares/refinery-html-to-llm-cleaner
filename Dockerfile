@@ -1,0 +1,24 @@
+# Use Apify's Python base image
+FROM apify/actor-python:3.12
+
+# Set working directory
+WORKDIR /app
+
+# Copy requirements and install Python dependencies
+COPY requirements.txt ./
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy Python application and refinery core
+COPY app/ ./app/
+COPY src/ ./src/
+COPY refinery_core_src/ ./refinery_core_src/
+
+# Expose port
+EXPOSE 8000
+
+# Health check
+HEALTHCHECK --interval=30s --timeout=30s --start-period=5s --retries=3 \
+    CMD curl -f http://localhost:8000/health || exit 1
+
+# Run the Apify Actor
+CMD ["python", "src/main.py"]

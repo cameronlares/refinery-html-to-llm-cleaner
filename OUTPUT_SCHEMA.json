@@ -1,0 +1,16 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "actorOutputSchemaVersion": 1,
+  "properties": {
+    "extracted_text": {
+      "type": "string",
+      "template": "Cleaned text content"
+    },
+    "success": {
+      "type": "string",
+      "template": "Operation status"
+    }
+  },
+  "required": ["extracted_text", "success"]
+}

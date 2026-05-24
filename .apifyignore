@@ -1,0 +1,31 @@
+# Exclude large directories and files to avoid ZIP corruption
+target/
+# Keep src/ - needed for Dockerfile
+# Keep assets/ - needed for FastText model
+*.log
+.git/
+.gitignore
+Cargo.toml
+Cargo.lock
+*.whl
+*.pyc
+__pycache__/
+.pytest_cache/
+.DS_Store
+.vscode/
+.idea/
+# Exclude large development artifacts that cause ZIP corruption
+.agent-browser/
+.bun/
+.cargo/
+.rustup/
+venv/
+.git/objects/
+ACTIVE_PROJECTS/
+node_modules/
+.next/
+dist/
+build/
+# Exclude large markdown files that cause ZIP corruption
+*.md
+!README.md

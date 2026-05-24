@@ -1,0 +1,17 @@
+target/
+venv/
+.venv/
+.env
+.env.master
+.git/
+.gitignore
+*.tar.gz
+*.zip
+*.whl
+*.log
+__pycache__/
+*.pyc
+node_modules/
+.actor/INPUT_SCHEMA.json
+.actor/OUTPUT_SCHEMA.json
+.actor/actor.json.bak

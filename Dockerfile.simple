@@ -1,0 +1,20 @@
+# Simple Dockerfile - use pre-built Python package
+FROM python:3.12-slim
+
+WORKDIR /app
+
+# Copy requirements and install
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy pre-built Rust wheel and install
+COPY target/wheels/refinery_cloud-0.1.0-cp312-cp312-linux_x86_64.whl .
+RUN pip install refinery_cloud-0.1.0-cp312-cp312-linux_x86_64.whl
+
+# Copy FastAPI app
+COPY app/ ./app/
+COPY assets/ ./assets/
+
+EXPOSE 8000
+
+CMD ["python", "app/api.py"]

@@ -1,0 +1,37 @@
+{
+  "actorSpecification": 1.0,
+  "name": "refinery-html-to-llm-cleaner",
+  "title": "⚡ $0.002 HTML Extraction API - 281x Faster Than BeautifulSoup!",
+  "description": "🔥 Extract clean text from HTML at just $0.002 per page! 281x faster than BeautifulSoup. Perfect for web scraping, data mining, bulk processing. Cheapest HTML extraction API on Apify - limited time introductory pricing!",
+  "version": "1.0",
+  "buildTag": "latest",
+  "seoTitle": "Cheapest HTML Text Extraction API - Web Scraping Tool",
+  "seoDescription": "Ultra-fast HTML text extraction at $0.002 per page. 281x faster than BeautifulSoup. Perfect for web scraping, data mining, and text processing. Lowest cost HTML cleaner API. Strip JavaScript and CSS instantly.",
+  "categories": [
+    "WEB_SCRAPING",
+    "DATA_EXTRACTION",
+    "DEVELOPER_TOOLS"
+  ],
+  "tags": [
+    "web-scraping",
+    "html-extraction",
+    "text-cleaner",
+    "data-mining",
+    "cheapest-api",
+    "fast-extraction",
+    "beautifulsoup-alternative",
+    "rust-performance",
+    "large-scale-scraping",
+    "low-cost",
+    "bulk-processing",
+    "text-preprocessing",
+    "html-parser",
+    "scraping-api",
+    "data-extraction"
+  ],
+  "dockerfile": "../Dockerfile",
+  "dockerContext": "../",
+  "readmePath": "../README.md",
+  "input": "../INPUT_SCHEMA.json",
+  "output": "../OUTPUT_SCHEMA.json"
+}

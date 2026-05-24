@@ -1,0 +1,40 @@
+# Universal Dockerfile for Refinery - Works on VPS and Apify
+FROM python:3.12-slim
+
+# Install system dependencies
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    pkg-config \
+    curl \
+    && curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y \
+    && rm -rf /var/lib/apt/lists/*
+
+ENV PATH="/root/.cargo/bin:${PATH}"
+WORKDIR /app
+
+# Copy requirements and install Python dependencies
+COPY requirements.production.txt .
+RUN pip install --no-cache-dir -r requirements.production.txt
+
+# Copy Rust source and build the core
+COPY Cargo.toml Cargo.lock ./
+COPY src ./src/
+COPY assets ./assets/
+
+# Build and install Rust core
+RUN pip install maturin && \
+    maturin build --release && \
+    pip install target/wheels/refinery_cloud*.whl
+
+# Copy MCP server with x402 payments
+COPY mcp_server_with_payments.py ./
+
+# Expose port for both MCP and REST traffic
+EXPOSE 3000
+
+# Health check
+HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
+    CMD curl -f http://localhost:3000/health || exit 1
+
+# Run the x402-gated MCP server
+CMD ["python", "mcp_server_with_payments.py"]
