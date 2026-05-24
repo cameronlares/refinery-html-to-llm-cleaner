@@ -27,8 +27,23 @@ vercel.json
 quick_test.html
 requirements.production.txt
 
-*.md
-!README.md
+# Never blanket-ignore *.md — README.md must ship for Store listing (Apify ignores ! negation reliably)
+APIFY_DEPLOY.md
+API_DOCUMENTATION.md
+APIFY_IMAGE_FIX_POSTMORTEM.md
+SESSION_HANDOFF_*.md
+README_MARKETPLACES.md
+QA_REPORT.md
+PROJECT_HANDOFF.md
+PRODUCTION_*.md
+LIVE_DASHBOARD_TEST.md
+HERMES_AGENT_FIX_REPORT.md
+FRONTEND_TEST.md
+FINAL_PRODUCTION_READINESS_REPORT.md
+CURRENT_STATE_ASSESSMENT.md
+CODE_REVIEW_ANALYSIS.md
+PRIVACY.md
+TERMS.md
 
 *.log
 *.whl

@@ -64,6 +64,7 @@ Do **not** create `1.2` unless you mean to. After a mistaken `1.2` push, clear i
 - Use **embedded WebP** via small assets (`assets/store/*.webp`) — keep total README **under ~250KB** (never multi‑MB base64 like the old `3620cb7` commit).
 - Prefer **Console output** screenshots over fake social posts for trust.
 - To refresh images: compress to WebP (~20–80KB each), re-run embed script, rebuild.
+- **Do not** use `*.md` in `.apifyignore` — it can exclude `README.md` and leave the Console stuck on an old Store README.
 
 ## GitHub
 
