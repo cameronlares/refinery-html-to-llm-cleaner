@@ -299,6 +299,10 @@ fn extract_text(html_str: String, selector: String) -> PyResult<String> {
     // BATTLE-TEST: Pre-compiled regex patterns for zero-allocation matching
     static SCRIPT_RE: Lazy<Regex> = Lazy::new(|| Regex::new(r"(?s)<script[^>]*>.*?</script>").unwrap());
     static STYLE_RE: Lazy<Regex> = Lazy::new(|| Regex::new(r"(?s)<style[^>]*>.*?</style>").unwrap());
+    static NAV_RE: Lazy<Regex> = Lazy::new(|| Regex::new(r"(?si)<nav\b[^>]*>.*?</nav>").unwrap());
+    static HEADER_RE: Lazy<Regex> = Lazy::new(|| Regex::new(r"(?si)<header\b[^>]*>.*?</header>").unwrap());
+    static FOOTER_RE: Lazy<Regex> = Lazy::new(|| Regex::new(r"(?si)<footer\b[^>]*>.*?</footer>").unwrap());
+    static ASIDE_RE: Lazy<Regex> = Lazy::new(|| Regex::new(r"(?si)<aside\b[^>]*>.*?</aside>").unwrap());
     static INLINE_JS_RE: Lazy<Regex> = Lazy::new(|| Regex::new(r"(?s)on\w+\s*=\s*[^>]*>").unwrap());
     static JSON_LD_RE: Lazy<Regex> = Lazy::new(|| Regex::new(r"(?s)<script[^>]*type[^>]*application[^>]*>.*?</script>").unwrap());
     static DATA_SCRIPT_RE: Lazy<Regex> = Lazy::new(|| Regex::new(r"(?s)<script[^>]*data-[^>]*>.*?</script>").unwrap());
@@ -318,9 +322,13 @@ fn extract_text(html_str: String, selector: String) -> PyResult<String> {
     // BATTLE-TEST: Chain operations with minimal allocations
     let mut working_text = html_str_slice.to_string();
     
-    // Remove scripts and styles (chained operations)
+    // Remove scripts, styles, and layout chrome before tag stripping
     working_text = SCRIPT_RE.replace_all(&working_text, "").to_string();
     working_text = STYLE_RE.replace_all(&working_text, "").to_string();
+    working_text = NAV_RE.replace_all(&working_text, "").to_string();
+    working_text = HEADER_RE.replace_all(&working_text, "").to_string();
+    working_text = FOOTER_RE.replace_all(&working_text, "").to_string();
+    working_text = ASIDE_RE.replace_all(&working_text, "").to_string();
     working_text = JSON_LD_RE.replace_all(&working_text, "").to_string();
     working_text = DATA_SCRIPT_RE.replace_all(&working_text, "").to_string();
     working_text = INLINE_JS_RE.replace_all(&working_text, "").to_string();
