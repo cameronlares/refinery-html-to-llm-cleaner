@@ -60,10 +60,10 @@ def main() -> int:
         embedded[key] = image_markdown(filename, alt, urls)
         print(f"  {filename}: {p.stat().st_size:,} bytes")
 
-    body = f"""# Refinery — Clean HTML for RAG & LLM pipelines
+    body = f"""# Refinery — HTML to LLM text cleaner for RAG pipelines
 
-**Strip scripts, nav, and layout junk from HTML before you chunk and embed.**  
-Pay **$0.002/page** · **~2–8ms** clean step (after your crawler fetches the page).
+**Apify Actor that cleans bloated HTML before chunking and embedding** — strip scripts, nav, ads, and layout junk from pages you already fetched.  
+Pay **$0.002/page** · **~2–8ms** per page (Rust core, after your crawler runs).
 
 [![Price](https://img.shields.io/badge/price-%240.002%2Fpage-blue)](https://apify.com/larelabs/refinery-html-to-llm-cleaner/pricing)
 [![Speed](https://img.shields.io/badge/speed-2--8ms%2Fpage-brightgreen)]()
@@ -72,17 +72,17 @@ Pay **$0.002/page** · **~2–8ms** clean step (after your crawler fetches the p
 
 ---
 
-## Before vs after (why RAG teams use this)
+## Reduce LLM token cost — HTML cleaner for RAG
 
 {embedded["before_after"]}
 
-Same page class as a news homepage — **up to ~97% fewer estimated tokens** on heavy DOM (your mileage varies).
+News-style homepages and heavy DOM pages often waste tokens on chrome. Refinery returns **main-body text** plus `word_count` so you can budget embeddings — **up to ~97% fewer estimated tokens** on bloated HTML (your mileage varies).
 
 ---
 
-## Social posts & feed HTML
+## Clean social feed HTML for chunking and embeddings
 
-Scraped timelines and comment threads ship **messy DOM** — scripts, sidebars, and nested widgets. Refinery keeps **post body text** and normalizes **@mentions** / **#topics** for chunking without paying for chrome.
+Scraped timelines and comment threads ship messy DOM — scripts, sidebars, widgets. Refinery keeps **post body text** and normalizes **@mentions** / **#hashtags** for RAG chunking without paying for layout noise.
 
 {embedded["social"]}
 
@@ -90,17 +90,17 @@ Paste `raw_payload` from your scraper, or pass URLs if you already fetch HTML el
 
 ---
 
-## What you see in Apify Console
+## Apify Console output — clean text and word count
 
-Run **Try actor** with the prefilled `example.com` URL — output lands in the dataset like this:
+Run **Try actor** with the prefilled `example.com` URL — each dataset row includes `text`, `word_count`, and timing:
 
 {embedded["console"]}
 
 ---
 
-## Bulk URL mode
+## Bulk HTML cleaning for crawl batches
 
-Send **many URLs in one run** — each row in the dataset gets `text`, `word_count`, and timing. Ideal after a crawl batch or sitemap pass.
+Send **many URLs in one run** — each row gets `text`, `word_count`, and `processing_time_ms`. Ideal after a sitemap pass, Firecrawl export, or Apify crawler dataset.
 
 {embedded["bulk"]}
 
@@ -119,21 +119,21 @@ Send **many URLs in one run** — each row in the dataset gets `text`, `word_cou
 
 ---
 
-## Who this is for
+## Who uses this HTML text extractor
 
-- **RAG / agent builders** paying per token on bloated page HTML  
-- **Scrape pipelines** that already fetch HTML (Firecrawl, Crawl4AI, Playwright, Apify crawlers)  
-- **Teams** who want deterministic text + `word_count` without BeautifulSoup on every worker  
+- **RAG and agent builders** cutting OpenAI / Anthropic token spend on page HTML  
+- **Scrape pipelines** that already fetch HTML (Firecrawl, Crawl4AI, Playwright, Apify Web Scraper)  
+- **Teams** replacing per-worker BeautifulSoup with a fast **HTML parser API** on Apify  
 
-**Refinery is not a crawler.** It cleans HTML you already have.
+**Refinery is not a web crawler.** It is an HTML-to-text preprocessing step after fetch.
 
 ```
-Your crawler → raw HTML → Refinery → clean text → chunk → embed → LLM
+Your crawler → raw HTML → Refinery → clean text → chunk → embed → vector DB → LLM
 ```
 
 ---
 
-## Try it now (3 demos)
+## Try the HTML to LLM cleaner (3 demos)
 
 **Demo 1** is prefilled in Console. Paste **Demo 2** or **Demo 3** to see different modes.
 
@@ -172,7 +172,7 @@ Your crawler → raw HTML → Refinery → clean text → chunk → embed → LL
 
 ---
 
-## What you get back
+## Output — text, word_count, language, timing
 
 ```json
 {{
@@ -193,19 +193,19 @@ Your crawler → raw HTML → Refinery → clean text → chunk → embed → LL
 
 ---
 
-## Where Refinery fits
+## Firecrawl, Crawl4AI, and BeautifulSoup alternative
 
 {embedded["stack"]}
 
 | You already use… | Refinery's job |
 |------------------|----------------|
-| Firecrawl, Crawl4AI | Clean their HTML output |
-| Apify Web Scraper | Clean `html` field |
-| Self-hosted BeautifulSoup | Faster hot path (~281× in our benchmarks) |
+| **Firecrawl**, **Crawl4AI** | Clean their HTML before chunking — fetch with them, **clean with Refinery** |
+| **Apify Web Scraper**, Website Content Crawler | Clean the `html` field in your dataset |
+| **BeautifulSoup** (self-hosted) | Same job, ~281× faster hot path in our benchmarks — pay per page on Apify instead of worker CPU |
 
 ---
 
-## Pricing
+## Pricing — HTML extraction on Apify
 
 | Event | Cost |
 |-------|------|
@@ -214,7 +214,7 @@ Your crawler → raw HTML → Refinery → clean text → chunk → embed → LL
 
 ---
 
-## Integrate
+## Integrate via Apify API (JavaScript and Python)
 
 ### JavaScript
 
@@ -241,19 +241,37 @@ print(next(client.dataset(run["defaultDatasetId"]).iterate_items()))
 
 ---
 
-## FAQ
+## FAQ — HTML cleaning for LLM and RAG
 
-**Replacement for Firecrawl?** No — fetch with Firecrawl, **clean with Refinery**.
+### Is Refinery a replacement for Firecrawl or Crawl4AI?
 
-**SPAs?** Use a browser crawler first; Refinery cleans the HTML you pass in.
+No. **Fetch with Firecrawl or Crawl4AI, then clean with Refinery.** Refinery does not crawl URLs on its own schedule — it strips noise from HTML you already have (or fetches URLs you pass in this run).
 
-**Social / X HTML?** Pass saved page HTML via `raw_payload` — Refinery does not log in or scrape feeds for you.
+### How do I reduce RAG token cost from bloated HTML?
+
+Run Refinery on raw HTML **before** chunking and embedding. Use `word_count` in the output to estimate savings. Remove scripts, styles, nav, and footer chrome so embeddings only see article body text.
+
+### Is this a BeautifulSoup alternative for HTML text extraction?
+
+Yes — same preprocessing job (HTML → clean text), implemented in **Rust** for low latency. Use it when you want a managed Apify step instead of BeautifulSoup on every worker.
+
+### Can I clean HTML after Apify Web Scraper or Website Content Crawler?
+
+Yes. Pass each page's HTML via `raw_payload`, or pipe URLs from your crawl. Refinery returns plain text ready for chunking.
+
+### Does Refinery handle JavaScript SPAs?
+
+Only if you pass **rendered HTML** from a browser crawler (Playwright, Puppeteer, Firecrawl). Refinery cleans DOM; it does not execute JavaScript.
+
+### Can Refinery scrape social feeds or X / Twitter?
+
+No login or feed scraping. Pass saved timeline HTML via `raw_payload` — Refinery extracts post text and normalizes @mentions / #hashtags.
 
 ---
 
-## Support
+## Support — LareLabs
 
-**LareLabs** · [Store listing](https://apify.com/larelabs/refinery-html-to-llm-cleaner) · [Console](https://console.apify.com/organization/vTZ0XDFG4cZCNAdQl/actors/jOcx8jK2FdhZhoKrE)
+**LareLabs** · [Apify Store listing](https://apify.com/larelabs/refinery-html-to-llm-cleaner) · [Console](https://console.apify.com/organization/vTZ0XDFG4cZCNAdQl/actors/jOcx8jK2FdhZhoKrE)
 
 ---
 

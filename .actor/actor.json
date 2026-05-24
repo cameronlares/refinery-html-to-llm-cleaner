@@ -2,11 +2,11 @@
   "actorSpecification": 1.0,
   "name": "refinery-html-to-llm-cleaner",
   "title": "Refinery — HTML to LLM Text (Cut RAG Token Cost)",
-  "description": "Clean HTML for RAG & LLM pipelines. Not a crawler — strips scripts, nav & layout junk after Firecrawl or your fetch. $0.002/page · Try the 3 README demos in Console.",
+  "description": "HTML to LLM text cleaner for RAG pipelines. Strip scripts, nav & layout junk after Firecrawl or your fetch. BeautifulSoup-alternative speed. $0.002/page · 3 README demos in Console.",
   "version": "1.1",
   "buildTag": "latest",
   "seoTitle": "RAG HTML Cleaner — Reduce LLM Tokens | Apify Actor",
-  "seoDescription": "Clean bloated HTML for RAG/LLM pipelines. Remove scripts and layout noise in milliseconds. $0.002/page.",
+  "seoDescription": "HTML to LLM text cleaner for RAG pipelines. Strip scripts and layout noise, cut embedding tokens. BeautifulSoup & Firecrawl post-process. $0.002/page.",
   "categories": [
     "WEB_SCRAPING",
     "DATA_EXTRACTION",
