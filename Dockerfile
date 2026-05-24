@@ -11,7 +11,8 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copy Python application and refinery core
 COPY app/ ./app/
 COPY src/ ./src/
-# Force cache bust for refinery_core_src
+# Force cache bust for refinery_core_src with ARG
+ARG CACHE_BUST=1
 COPY refinery_core_src/ ./refinery_core_src/
 
 # Expose port
