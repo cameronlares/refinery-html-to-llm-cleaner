@@ -330,12 +330,12 @@ fn extract_text(html_str: String, selector: String) -> PyResult<String> {
     // Strip HTML tags
     working_text = HTML_TAG_RE.replace_all(&working_text, "").to_string();
     
-    // Remove CSS artifacts
+    // Remove CSS artifacts (but not hashtags - they're handled separately)
     working_text = CSS_CLASS_RE.replace_all(&working_text, "").to_string();
     working_text = CSS_ID_RE.replace_all(&working_text, "").to_string();
     working_text = HEX_COLOR_RE.replace_all(&working_text, "").to_string();
     working_text = SHORT_HEX_RE.replace_all(&working_text, "").to_string();
-    working_text = FRAGMENT_RE.replace_all(&working_text, "").to_string();
+    // Skip FRAGMENT_RE to avoid removing hashtags from text content
     
     // PREMIUM: HTML entity decoding (zero-copy where possible)
     let decoded_text = decode_html_entities_simd_zero_copy(working_text)?;
