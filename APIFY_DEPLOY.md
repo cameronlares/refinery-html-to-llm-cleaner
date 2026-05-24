@@ -42,6 +42,22 @@ apify actors push --force
 
 Source of truth: this repo path. Not `ARCHIVE/`, not personal Apify, not a second actor name.
 
+## Version tags (avoid “three latest” in Console)
+
+In `.actor/actor.json` keep **one** line only:
+
+```json
+"version": "1.1",
+"buildTag": "latest"
+```
+
+Do **not** create `1.2` unless you mean to. After a mistaken `1.2` push, clear its tag in Console or API:
+
+- `1.1` → `buildTag: latest` (and point global `latest` at the last green **1.1.x** build)
+- `1.0` / `1.2` → `buildTag: null`
+
+**Current (fixed):** global `latest` = build **1.1.36**; only version **1.1** shows `(latest)`.
+
 ## GitHub
 
 Apify builds from **CLI push** here unless you explicitly wire GitHub → Apify in the **Lare Labs** org console. Pushes to GitHub do not update the Store listing unless that integration is on the org actor.
