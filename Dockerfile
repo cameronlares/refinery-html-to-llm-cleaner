@@ -11,10 +11,9 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copy Python application and refinery core
 COPY app/ ./app/
 COPY src/ ./src/
+# Force cache bust for refinery_core_src by using build arg
+ARG REFINERY_VERSION=1.1.22
 COPY refinery_core_src/ ./refinery_core_src/
-
-# Force cache bust with timestamp
-RUN echo "cache_bust_$(date +%s)" > /tmp/.cache_bust
 
 # Expose port
 EXPOSE 8000
