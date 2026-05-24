@@ -1,9 +1,8 @@
 #!/usr/bin/env python3
-"""Embed assets/store/*.webp as data URIs in README.md for Apify Store."""
+"""Generate README.md with CDN-hosted store images for Apify Store."""
 
 from __future__ import annotations
 
-import base64
 import sys
 from pathlib import Path
 
@@ -11,11 +10,11 @@ ROOT = Path(__file__).resolve().parents[1]
 ASSETS = ROOT / "assets" / "store"
 README = ROOT / "README.md"
 MAX_README_BYTES = 250_000
+CDN_BASE = "https://cdn.jsdelivr.net/gh/LareLabs/refinery-html-to-llm-cleaner@main/assets/store"
 
 
-def embed(path: Path, alt: str) -> str:
-    b64 = base64.standard_b64encode(path.read_bytes()).decode("ascii")
-    return f"![{alt}](data:image/webp;base64,{b64})"
+def image_markdown(filename: str, alt: str) -> str:
+    return f"![{alt}]({CDN_BASE}/{filename})"
 
 
 def main() -> int:
@@ -49,7 +48,7 @@ def main() -> int:
         if not p.is_file():
             print(f"Missing {p}", file=sys.stderr)
             return 1
-        embedded[key] = embed(p, alt)
+        embedded[key] = image_markdown(filename, alt)
         print(f"  {filename}: {p.stat().st_size:,} bytes")
 
     body = f"""# Refinery — Clean HTML for RAG & LLM pipelines
@@ -249,7 +248,7 @@ print(next(client.dataset(run["defaultDatasetId"]).iterate_items()))
 
 ---
 
-*Rust core · Apify Actor · Run `python scripts/embed_store_readme.py` after updating `assets/store/*.webp`.*
+*Rust core · Apify Actor · Update `assets/store/*.webp`, push to GitHub, then run `python scripts/embed_store_readme.py` and `python scripts/sync_store_readme.py`.*
 """
 
     README.write_text(body, encoding="utf-8")

@@ -80,10 +80,11 @@ apify info   # must be larelabs
 
 ## Store README images
 
-- Apify **does not render** GitHub `raw.githubusercontent.com` image URLs in the Actor README.
-- Use **embedded WebP** via small assets (`assets/store/*.webp`) — keep total README **under ~250KB** (never multi‑MB base64 like the old `3620cb7` commit).
-- Prefer **Console output** screenshots over fake social posts for trust.
-- To refresh images: compress to WebP (~20–80KB each), re-run embed script, rebuild.
+- Apify **does not render** `raw.githubusercontent.com` URLs or large **base64 data URIs** in the Store README (broken icons / raw base64 text on the page).
+- Host images in `assets/store/*.webp`, **push to GitHub**, reference via **jsDelivr CDN** in README:
+  `https://cdn.jsdelivr.net/gh/LareLabs/refinery-html-to-llm-cleaner@main/assets/store/<file>.webp`
+- After changing images or copy: `python3 scripts/embed_store_readme.py` then `python3 scripts/sync_store_readme.py`.
+- Keep WebP assets ~20–80KB each; README stays small (URLs only, not embedded blobs).
 - **Do not** use `*.md` in `.apifyignore` — it can exclude `README.md` and leave the Console stuck on an old Store README.
 
 ## GitHub
