@@ -56,7 +56,14 @@ Do **not** create `1.2` unless you mean to. After a mistaken `1.2` push, clear i
 - `1.1` → `buildTag: latest` (and point global `latest` at the last green **1.1.x** build)
 - `1.0` / `1.2` → `buildTag: null`
 
-**Current (fixed):** global `latest` = build **1.1.36**; only version **1.1** shows `(latest)`.
+**Current (fixed):** global `latest` = build **1.1.39**; only version **1.1** shows `(latest)`.
+
+## Store README images
+
+- Apify **does not render** GitHub `raw.githubusercontent.com` image URLs in the Actor README.
+- Use **embedded WebP** via small assets (`assets/store/*.webp`) — keep total README **under ~250KB** (never multi‑MB base64 like the old `3620cb7` commit).
+- Prefer **Console output** screenshots over fake social posts for trust.
+- To refresh images: compress to WebP (~20–80KB each), re-run embed script, rebuild.
 
 ## GitHub
 
