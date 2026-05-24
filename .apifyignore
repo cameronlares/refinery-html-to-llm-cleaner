@@ -2,6 +2,7 @@
 target/
 # Keep src/ - needed for Dockerfile
 # Keep assets/ - needed for FastText model
+# Keep refinery_core_src/ - needed for Dockerfile (contains .so file)
 *.log
 .git/
 .gitignore
@@ -29,5 +30,3 @@ build/
 # Exclude large markdown files that cause ZIP corruption
 *.md
 !README.md
-# Keep cache bust file for refinery_core_src
-!refinery_core_src/.cache_bust
