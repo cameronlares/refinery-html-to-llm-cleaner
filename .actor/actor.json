@@ -1,12 +1,12 @@
 {
   "actorSpecification": 1.0,
   "name": "refinery-html-to-llm-cleaner",
-  "title": "⚡ $0.002 HTML Extraction API - 281x Faster Than BeautifulSoup!",
-  "description": "🔥 Extract clean text from HTML at just $0.002 per page! 281x faster than BeautifulSoup. Perfect for web scraping, data mining, bulk processing. Cheapest HTML extraction API on Apify - limited time introductory pricing!",
-  "version": "1.0",
+  "title": "HTML to Text Cleaner - Ultra-Fast HTML Extraction",
+  "description": "Extract clean text from HTML in 2-8ms. Removes JavaScript, CSS, and tracking tags automatically. Reduces LLM token costs by 40%. Perfect for RAG pipelines, web scrapers, and AI agents that need reliable data preprocessing.",
+  "version": "1.1",
   "buildTag": "latest",
-  "seoTitle": "Cheapest HTML Text Extraction API - Web Scraping Tool",
-  "seoDescription": "Ultra-fast HTML text extraction at $0.002 per page. 281x faster than BeautifulSoup. Perfect for web scraping, data mining, and text processing. Lowest cost HTML cleaner API. Strip JavaScript and CSS instantly.",
+  "seoTitle": "Fast HTML Text Extraction API - Web Scraping Tool",
+  "seoDescription": "Ultra-fast HTML text extraction at $0.002 per page. 281x faster than BeautifulSoup. Perfect for web scraping, data mining, and text processing. Strip JavaScript and CSS instantly.",
   "categories": [
     "WEB_SCRAPING",
     "DATA_EXTRACTION",
@@ -17,7 +17,6 @@
     "html-extraction",
     "text-cleaner",
     "data-mining",
-    "cheapest-api",
     "fast-extraction",
     "beautifulsoup-alternative",
     "rust-performance",
@@ -27,7 +26,9 @@
     "text-preprocessing",
     "html-parser",
     "scraping-api",
-    "data-extraction"
+    "data-extraction",
+    "llm-pipeline",
+    "rag"
   ],
   "dockerfile": "../Dockerfile",
   "dockerContext": "../",
