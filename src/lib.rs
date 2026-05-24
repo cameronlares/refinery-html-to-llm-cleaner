@@ -587,10 +587,34 @@ fn refinery_json(html: String) -> PyResult<String> {
         serde_json::Number::from(result["text"].as_str().unwrap_or("").split_whitespace().count() as u64)
     );
     
-    // Extract mentions and hashtags
+    // Extract mentions and hashtags with proper word boundaries
     let text = result["text"].as_str().unwrap_or("").to_string();
-    let mentions: Vec<&str> = text.split_whitespace().filter(|w| w.starts_with('@')).collect();
-    let hashtags: Vec<&str> = text.split_whitespace().filter(|w| w.starts_with('#')).collect();
+    
+    // Use regex patterns with word boundaries to avoid false positives
+    // Mentions: @username at word boundary, not preceded by word character (excludes emails)
+    static MENTION_RE: Lazy<Regex> = Lazy::new(|| 
+        Regex::new(r"(?<!\w)@(\w{1,15})\b").unwrap()
+    );
+    // Hashtags: #hashtag at word boundary
+    static HASHTAG_RE: Lazy<Regex> = Lazy::new(|| 
+        Regex::new(r"(?<!\w)#(\w{1,30})\b").unwrap()
+    );
+    
+    // Extract mentions with proper boundaries (exclude emails, limit to 15 chars like Twitter)
+    let mut mentions: Vec<String> = MENTION_RE.captures_iter(&text)
+        .filter_map(|caps| caps.get(1))
+        .map(|m| format!("@{}", m.as_str()))
+        .collect();
+    
+    // Extract hashtags with proper boundaries (limit to 30 chars like Instagram)
+    let mut hashtags: Vec<String> = HASHTAG_RE.captures_iter(&text)
+        .filter_map(|caps| caps.get(1))
+        .map(|m| format!("#{}", m.as_str()))
+        .collect();
+    
+    // Sort for deterministic output
+    mentions.sort();
+    hashtags.sort();
     
     // Content type detection
     let content_type = if text.contains("article") || text.contains("post") {
