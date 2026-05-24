@@ -1,13 +1,21 @@
-# Refinery: Ultra-Fast HTML to Text Cleaner
+# Refinery — HTML → LLM-ready text (fewer RAG tokens)
 
 [![Price](https://img.shields.io/badge/price-%240.002%2Fpage-blue)](https://apify.com/larelabs/refinery-html-to-llm-cleaner/pricing)
 [![Speed](https://img.shields.io/badge/speed-2--8ms%2Fpage-brightgreen)]()
-[![Tech](https://img.shields.io/badge/built%20with-Rust%20%2B%20Python-orange)]()
-[![Status](https://img.shields.io/badge/status-Production%20Ready-success)]()
 
-**Extract clean text from HTML in 2-8ms. Removes JavaScript, CSS, and tracking tags automatically. Reduces LLM token costs by 40%.**
+**Drop layout, scripts, and nav noise before you chunk and embed.** Use after Firecrawl, Crawl4AI, or your own fetch — $0.002/page.
 
-Built for RAG pipelines, web scrapers, and AI agents that need reliable data preprocessing at scale.
+> **Do not embed multi‑MB base64 images in this README.** Apify extracts it on every build; a ~5KB file is fine.
+
+---
+
+## Proof (BBC News homepage, est. tokens = chars ÷ 4)
+
+| | Raw HTML | After Refinery |
+|--|----------|----------------|
+| Size | ~329 KB | ~10 KB text |
+| Est. tokens | ~82,000 | ~2,500 |
+| Words | — | ~1,656 |
 
 ---
 

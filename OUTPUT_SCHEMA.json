@@ -1,16 +1,12 @@
 {
-  "$schema": "http://json-schema.org/draft-07/schema#",
-  "type": "object",
   "actorOutputSchemaVersion": 1,
+  "title": "Refinery cleaned text",
+  "description": "Dataset items with text, word_count, language, and processing_time_ms per page.",
   "properties": {
-    "extracted_text": {
+    "results": {
       "type": "string",
-      "template": "Cleaned text content"
-    },
-    "success": {
-      "type": "string",
-      "template": "Operation status"
+      "title": "Cleaned pages (dataset)",
+      "template": "{{links.apiDefaultDatasetUrl}}/items"
     }
-  },
-  "required": ["extracted_text", "success"]
+  }
 }

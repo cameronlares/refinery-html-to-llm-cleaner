@@ -1,5 +1,8 @@
-# Rust build artifacts
+# Rust build artifacts (never commit — Apify Git clone was 257MB+ with this tracked)
 target/
+**/target/
+
+# Rust lock optional for lib-only deploy
 Cargo.lock
 
 # Python compiled artifacts

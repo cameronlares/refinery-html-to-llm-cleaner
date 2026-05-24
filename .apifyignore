@@ -1,34 +1,47 @@
-# Exclude large directories and files to avoid ZIP corruption
-target/
-# Keep src/ - needed for Dockerfile
-# Keep assets/ - needed for FastText model
-# Keep refinery_core_src/ - needed for Dockerfile (contains .so file and .version)
-*.log
-.git/
-.gitignore
+# Deploy ZIP only — keep small. Git builds use .dockerignore + this where applicable.
+.git
+**/.git
+target
+target/**
+refinery-deploy
+refinery-deploy/**
+
 Cargo.toml
 Cargo.lock
-*.whl
-*.pyc
-__pycache__/
-.pytest_cache/
-.DS_Store
-.vscode/
-.idea/
-# Exclude large development artifacts that cause ZIP corruption
-.agent-browser/
-.bun/
-.cargo/
-.rustup/
-venv/
-.git/objects/
-ACTIVE_PROJECTS/
-node_modules/
-.next/
-dist/
-build/
-# Exclude large markdown files that cause ZIP corruption
+src/lib.rs
+src/Cargo.toml
+
+Dockerfile.backup
+Dockerfile.cli
+Dockerfile.no-rust
+Dockerfile.production
+Dockerfile.simple
+Dockerfile.universal
+docker-compose.yml
+embed_images.py
+
+assets
+assets/**
+dashboard.html
+vercel.json
+quick_test.html
+requirements.production.txt
+
 *.md
 !README.md
-# Keep version file for cache busting
-!refinery_core_src/.version
+
+*.log
+*.whl
+*.pyc
+__pycache__
+**/__pycache__
+.pytest_cache
+.DS_Store
+.vscode
+.idea
+venv
+node_modules
+.agent-browser
+.bun
+.cargo
+.rustup
